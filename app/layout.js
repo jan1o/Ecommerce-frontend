@@ -21,10 +21,11 @@ export default function RootLayout({ children }) {
         <div id={styles.container}>
           {children}
         </div>
-      
+        
+        <Footer />
       </body>
 
-      <Footer />
+
     </html>
   )
 }
