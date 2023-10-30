@@ -26,4 +26,5 @@ Abaixo devem ser listados todos os commits realizados (com exceção dos commits
 | Commit | Versão | Descrição |
 |:----------|:----------:|:----------|
 | 000 | 0.0.0 | Commit fictício para exemplificação | 
+| 001 | 0.1.0 | Navbar estilizada, mas não funcional; Footer estilizado; Head principal com fontes configuradas|
 
