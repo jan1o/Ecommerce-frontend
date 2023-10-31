@@ -5,6 +5,10 @@ import Head from './components/head.js'
 import Footer from './components/footer.js'
 import Navbar from './components/navbar'
 
+//redux
+import { Provider } from "react-redux"
+import { store } from "../store"
+
 export const metadata = {
   title: 'MyCommerce',
   description: 'Ecommerce criado por Jânio Fernandes',
@@ -19,7 +23,9 @@ export default function RootLayout({ children }) {
         
         <Navbar />
         <div id={styles.container}>
-          {children}
+          <Provider store={store} >
+            {children}
+          </Provider>
         </div>
         
         <Footer />
