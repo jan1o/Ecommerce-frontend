@@ -16,10 +16,10 @@ export default function Navbar(){
           <Link href="/"><BsHouseDoorFill/></Link>
         </li>
         <li>
-          <Link href="/login">Entrar</Link>
+          <Link href="/auth/login">Entrar</Link>
         </li>
         <li>
-          <Link href="/register">Cadastrar</Link>
+          <Link href="/auth/register">Cadastrar</Link>
         </li>
       </ul>
     </nav>
