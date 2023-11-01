@@ -11,6 +11,8 @@ const register = async(data) => {
       localStorage.setItem("user", JSON.stringify(res));
     }
 
+    return res;
+    
   } catch(error){
     console.log(error);
   }
@@ -40,10 +42,27 @@ const login = async (data) => {
   }
 }
 
+//Validate if user token is valid
+const validateUser = async (token) => {
+  const config = requestConfig("POST", null, token);
+
+  try {
+
+    const res = await fetch(api + "/authGuard", config);
+
+    return res;
+
+
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 const authService = {
   register,
   logout,
   login,
+  validateUser,
 };
 
 export default authService;
