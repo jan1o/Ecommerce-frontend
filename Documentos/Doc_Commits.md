@@ -30,5 +30,6 @@ Abaixo devem ser listados todos os commits realizados (com exceção dos commits
 | 002 | 0.1.1 | Bug de hydratation do footer resolvido |
 | 003 | 0.1.1 | Tela de registro de usuário estilizada, mas não funcional; store, service e slice de autenticação configurados para o caso de realmente utilizá-los |
 | 004 | 0.1.1 | ValidateUser add ao authService, exclusão do redux, criação do hook de autenticação, criação do componente de mensagens, criação do utilitário de verificação de usuário logado e navbar atualizada para usuário logado ou deslogado. |
+| 005 | 0.2.1 | Funcionalidade de login concluída (ainda não conectando a api) |
 
 

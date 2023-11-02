@@ -14,6 +14,7 @@ export const useAuth = () => {
 
   useEffect(() => {
     setAuth(true);
+    setLoading(false);
   }, []);
 
   return [auth, loading];
