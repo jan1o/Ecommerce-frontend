@@ -46,7 +46,7 @@ export default function Login() {
           <input type="submit" value="Entrar" />
           {responseState && <Message msg={responseState} type="error"/>}
         </form>
-        <p>Não tem uma conta? <Link href="/register">Clique aqui</Link></p>
+        <p>Não tem uma conta? <Link href="/auth/register">Clique aqui</Link></p>
       </div>
     )
   }
