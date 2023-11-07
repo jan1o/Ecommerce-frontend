@@ -28,6 +28,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-bottom: 20px;
+
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
 
 #categorias div {
@@ -38,11 +42,13 @@
   border-left: 1px solid white;
   border-right: 1px solid white;
   width: 250px;
+  margin-right: 25px;
 }
 
 #categorias div:hover {
   background-color: #080808;
   cursor: pointer;
+  scale: 110%;
 }
 
 #categorias img {
@@ -55,4 +61,15 @@
 
 #categorias p {
   padding-top: 5px;
+}
+
+#produtos {
+  margin-top: 100px;
+}
+
+.titulo {
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

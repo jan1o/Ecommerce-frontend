@@ -33,5 +33,6 @@ Abaixo devem ser listados todos os commits realizados (com exceção dos commits
 | 005 | 0.2.1 | Funcionalidade de login concluída (ainda não conectando a api) |
 | 006 | 0.2.1 | Páginas de 404 e loading prontas; Página skeleton planejada, mas não executável |
 | 007 | 0.2.1 | Banner e categorias da página principal estilizadas |
+| 008 | 0.2.1 | Melhorias na estilização das categorias da página principal. |
 
 
