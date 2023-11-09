@@ -34,5 +34,6 @@ Abaixo devem ser listados todos os commits realizados (com exceção dos commits
 | 006 | 0.2.1 | Páginas de 404 e loading prontas; Página skeleton planejada, mas não executável |
 | 007 | 0.2.1 | Banner e categorias da página principal estilizadas |
 | 008 | 0.2.1 | Melhorias na estilização das categorias da página principal. |
+| 009 | 0.2.1 | Estilização da página principal finalizada. |
 
 
