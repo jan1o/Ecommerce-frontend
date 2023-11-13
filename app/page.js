@@ -46,7 +46,7 @@ const categorias = [
     nome: "Categoria 8",
     img: "/images/ui/categoria_temporaria.png"
   },
-]
+];
 
 const produtos = [
   {
@@ -54,30 +54,34 @@ const produtos = [
     imagem: "/images/ui/categoria_temporaria.png",
     nome: "Produto 1",
     likes: 20,
-    preco: 25.99
+    preco: 25.99,
+    precoAnterior: 29.99
   },
   {
     id: 2,
     imagem: "/images/ui/categoria_temporaria.png",
     nome: "Produto 2",
     likes: 12,
-    preco: 99.99
+    preco: 99.99,
+    precoAnterior: 115.00
   },
   {
     id: 3,
     imagem: "/images/ui/categoria_temporaria.png",
     nome: "Produto 3",
     likes: 50,
-    preco: 129.95
+    preco: 129.95,
+    precoAnterior: 139.95
   },
   {
     id: 4,
     imagem: "/images/ui/categoria_temporaria.png",
     nome: "Produto 4",
     likes: 100,
-    preco: 12.99
+    preco: 12.99,
+    precoAnterior: 14.99
   },
-]
+];
 
 export default function Home() {
 
@@ -113,6 +117,7 @@ export default function Home() {
                       <img src='/like'/>
                       <p>{produto.likes}</p>
                     </div>
+                    <h3>R${produto.precoAnterior}</h3>
                     <h2>R${produto.preco}</h2>
                   </div>
           })}

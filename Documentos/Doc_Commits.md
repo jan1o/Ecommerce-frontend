@@ -35,5 +35,6 @@ Abaixo devem ser listados todos os commits realizados (com exceção dos commits
 | 007 | 0.2.1 | Banner e categorias da página principal estilizadas |
 | 008 | 0.2.1 | Melhorias na estilização das categorias da página principal. |
 | 009 | 0.2.1 | Estilização da página principal finalizada. |
+| 010 | 0.2.1 | página de produto criada e parcialmente estilizada. |
 
 
