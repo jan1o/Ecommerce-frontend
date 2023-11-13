@@ -56,7 +56,7 @@ const produto = {
       id: 2,
       espec: "Cor",
       desc: "Azul",
-    }
+    },
   ],
 }
 
@@ -108,21 +108,23 @@ export default function Product({ params }){
         </div>
       </div>
       {/*garantias*/}
-      <div>
-        <img src='/images' alt='garantias'/>
+      <div id={styles.garantias_container}>
+        <img src='/images/ui/banner_background.png' alt='garantias'/>
       </div>
       {/*infos tecnicas*/}
-      <div>
-        <h2>Informações do produto</h2>
-        <h3>{produto.nome}</h3>
-        <p>{produto.descricao}</p>
-        <div>
+      <div id={styles.detalhes_container}>
+        <div className={styles.infos_box}>
+          <h1>Informações do produto</h1>
+          <h3>{produto.nome}</h3>
+          <p>{produto.descricao}</p>
+        </div>
+        <div id={styles.especificacoes_container}>
           {produto.especificacoes?.map((item) => {
-            return <div key={item.id}>
-              <div>
+            return <div key={item.id} className={styles.espec}>
+              <div className={styles.left_espec}>
                 <h3>{item.espec}</h3>
               </div>
-              <div>
+              <div className={styles.right_espec}>
                 <h3>{item.desc}</h3>
               </div>
             </div>
