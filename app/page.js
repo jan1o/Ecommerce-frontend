@@ -117,7 +117,7 @@ export default function Home() {
                       <img src='/like'/>
                       <p>{produto.likes}</p>
                     </div>
-                    <h3>R${produto.precoAnterior}</h3>
+                    <h4>R${produto.precoAnterior}</h4>
                     <h2>R${produto.preco}</h2>
                   </div>
           })}
@@ -135,6 +135,7 @@ export default function Home() {
                       <img src='/like'/>
                       <p>{produto.likes}</p>
                     </div>
+                    <h4>R${produto.precoAnterior}</h4>
                     <h2>R${produto.preco}</h2>
                   </div>
           })}
