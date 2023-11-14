@@ -122,6 +122,14 @@
   height: 25px;
 }
 
+.produto h4 {
+  color: gray;
+  text-decoration: line-through;
+  padding-left: 7px;
+  margin-bottom: 0;
+  margin-top: 5px;
+}
+
 .produto h2 {
   padding-left: 7px;
   margin-top: 0;

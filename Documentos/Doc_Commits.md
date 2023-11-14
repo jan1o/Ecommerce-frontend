@@ -37,5 +37,6 @@ Abaixo devem ser listados todos os commits realizados (com exceção dos commits
 | 009 | 0.2.1 | Estilização da página principal finalizada. |
 | 010 | 0.2.1 | Página de produto criada e parcialmente estilizada. |
 | 011 | 0.2.1 | Finalização da estilização da página de produtos. |
+| 012 | 0.2.1 | Página de carrinho criada e estilização finalizada. |
 
 
