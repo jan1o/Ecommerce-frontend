@@ -38,5 +38,6 @@ Abaixo devem ser listados todos os commits realizados (com exceção dos commits
 | 010 | 0.2.1 | Página de produto criada e parcialmente estilizada. |
 | 011 | 0.2.1 | Finalização da estilização da página de produtos. |
 | 012 | 0.2.1 | Página de carrinho criada e estilização finalizada. |
+| 013 | 0.2.1 | Search do navbar funcional e documento de Banco de Dados criado. |
 
 
