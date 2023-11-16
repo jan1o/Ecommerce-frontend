@@ -14,9 +14,9 @@ O sistema poderá ser utilizado por diversos usuários. Temos os seguintes perfi
 
 | Requisito | Descrição | Ator |
 |-----------|:---------|:-----|
-| RF001 - Cadastrar Cliente | Cadastrar um novo cliente no sistema com as informações de email, senha, nome, data de nascimento, número de telefone e imagem de exibição. | Visitante |
+| RF001 - Cadastrar Cliente | Cadastrar um novo cliente no sistema com as informações de nome, email, senha e confirmar senha. | Visitante |
 | RF002 - Visualizar Cliente | O cliente cadastrado pode visualizar seus dados próprios. | Cliente |
-| RF003 - Alterar Cliente | Alterar um cliente cadastrado. | Cliente |
+| RF003 - Alterar Cliente | Alterar um cliente cadastrado podendo alterar informações de nome, email, data de nascimento, número de telefone e imagem de exibição. | Cliente |
 | RF004 - Deletar Cliente | Deletar um cliente cadastrado. | Cliente |
 | RF005 - Realizar Login | Usuário realiza login no sistema com os dados de email e senha. | Administrador/Cliente |
 | RF006 - Realizar Logoff | Usuário realiza logoff no sistema. | Administrador/Cliente |
