@@ -18,6 +18,7 @@ Você pode encontrar uma simples documentação do sistema acessando [Link para 
 * [Documento de Requisitos](https://github.com/jan1o/Ecommerce-frontend/blob/master/Documentos/Doc_Requisitos.md)
 * [Documento de Commits](https://github.com/jan1o/Ecommerce-frontend/blob/master/Documentos/Doc_Commits.md)
 * [Documento de Versão](https://github.com/jan1o/Ecommerce-frontend/blob/master/Documentos/Doc_Versao.md)
+* [Documento de Banco de Dados](https://github.com/jan1o/Ecommerce-frontend/master/Documentos/Doc_BD.md)
 
 ## .env
 Lembre-se de incializar um arquivo .env para variáveis de ambiente. Este arquivo não deve ser versionado no git, mas a seguir você encontra as variáveis que deve preencher com seus próprios dados para que o sistema funcione perfeitamente:
