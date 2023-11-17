@@ -40,5 +40,6 @@ Abaixo devem ser listados todos os commits realizados (com exceção dos commits
 | 012 | 0.2.1 | Página de carrinho criada e estilização finalizada. |
 | 013 | 0.2.1 | Search do navbar funcional e documento de Banco de Dados criado. |
 | 014 | 0.2.1 | Página de profile criada e componentes de informações do usuário, produtos favoritos e pedidos realizados, ambos relacionados ao profile. Ainda não foi inicializada a estilização da página e de seus componentes. |
+| 015 | 0.2.1 | Página de profile e seus componentes todos estilizados. |
 
 

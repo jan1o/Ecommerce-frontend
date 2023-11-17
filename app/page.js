@@ -91,6 +91,10 @@ export default function Home() {
     router.push(`/search?categoria=${categoria}`);
   }
 
+  const handleProduct = (product) => {
+    router.push(`/products/${product}`);
+  }
+
   return (
     <div>
       <div id={styles.banner}>
@@ -110,7 +114,7 @@ export default function Home() {
         <h3>O que há de melhor</h3>
         <div className={styles.produtos_container}>
           {produtos.map((produto) => {
-            return <div className={styles.produto} key={produto.id}>
+            return <div className={styles.produto} key={produto.id} onClick={() => handleProduct(produto.id)}>
                     <img src={produto.imagem} alt={produto.nome}/>
                     <p>{produto.nome}</p>
                     <div>
@@ -128,7 +132,7 @@ export default function Home() {
         <h3>O que há de mais novo</h3>
         <div className={styles.produtos_container}>
           {produtos.map((produto) => {
-            return <div className={styles.produto} key={produto.id}>
+            return <div className={styles.produto} key={produto.id} onClick={() => handleProduct(produto.id)}>
                     <img src={produto.imagem} alt={produto.nome}/>
                     <p>{produto.nome}</p>
                     <div>

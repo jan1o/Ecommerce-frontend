@@ -1,0 +1,37 @@
+#principal_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: top;
+}
+
+#left_container {
+  width: 20%;
+  margin-left: 10px;
+  margin-top: 10px;
+  border-right: 1px solid gray;
+}
+
+#left_container div {
+  height: 50px;
+  border-bottom: 1px solid gray;
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+
+#left_container div span {
+  cursor: pointer;
+}
+
+#left_container div span:hover {
+  text-decoration: underline;
+  color: #0094F6;
+}
+
+#right_container {
+  width: 80%;
+  margin-top: 10px;
+  margin-left: 25px;
+  margin-right: 10px;
+}

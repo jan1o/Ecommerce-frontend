@@ -1,0 +1,158 @@
+/* infos */
+#infos_container {
+  width: 100%;
+}
+
+#infos_container img {
+  width: 200px;
+  margin-bottom: 50px;
+  border: 1px dashed gray;
+}
+
+#infos_container div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+#infos_container div section {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: left;
+}
+
+#infos_container form {
+  width: 80%;
+}
+
+/* favoritos */
+#favoritos_container {
+  width: 100%;
+}
+
+#favoritos_cabecalho {
+  background-color: gray;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+#favoritos_p1 {
+  margin-left: 20px;
+  width: 70%;
+}
+
+#favoritos_p2 {
+  width: 30%;
+}
+
+#favoritos_product_container {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  border-bottom: 1px solid gray;
+  margin-top: 10px;
+  padding-bottom: 25px;
+}
+
+#favoritos_product {
+  display: flex;
+  justify-content: left;
+  align-items: top;
+  width: 70%;
+}
+
+#favoritos_product img {
+  width: 100px;
+}
+
+#favoritos_product h3 {
+  padding-left: 25px;
+}
+
+#favoritos_valor {
+  width: 20%;
+}
+
+#favoritos_valor h5 {
+  margin-bottom: 0;
+  text-decoration: line-through;
+}
+
+#favoritos_valor h2 {
+  margin-top: 0;
+}
+
+#favoritos_product_container button {
+ width: 80px;
+}
+
+/* pedidos */
+#pedidos_container {
+  width: 100%;
+}
+
+#pedidos_cabecalho {
+  background-color: gray;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+#pedidos_p1 {
+  width: 50%;
+  padding-left: 20px;
+}
+
+#pedidos_p2 {
+  width: 30%;
+  padding-left: 20px;
+}
+
+#pedidos_p3 {
+  width: 20%;
+  padding-left: 20px;
+}
+
+.pedido_container {
+  display: flex;
+  align-items: left;
+  justify-content: center;
+  margin-bottom: 50px;
+  border-bottom: 1px solid gray;
+}
+
+.pedido_cliente {
+  width: 50%;
+}
+
+.pedido_produtos {
+  width: 30%;
+  padding-left: 20px;
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.pedido_produtos div {
+  display: flex;
+  margin-bottom: 25px;
+}
+
+.pedido_produtos div img {
+  width: 100px;
+  margin-right: 20px;
+}
+
+#pedido_status {
+  width: 20%;
+}
+
+#pedido_status h3 {
+  margin-left: 15px;
+}
+
