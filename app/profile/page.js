@@ -13,13 +13,19 @@ export default function Profile() {
   const [view, setView] = useState(0);
 
   return (
-    <div>
-      <div>
-        <span onClick={() => setView(0)}>Informações pessoais</span>
-        <span onClick={() => setView(1)}>Meus favoritos</span>
-        <span onClick={() => setView(2)}>Meus pedidos</span>
+    <div id={styles.principal_container}>
+      <div id={styles.left_container}>
+        <div>
+          <span onClick={() => setView(0)}>Informações pessoais</span>
+        </div>
+        <div>
+          <span onClick={() => setView(1)}>Meus favoritos</span>
+        </div>
+        <div>
+          <span onClick={() => setView(2)}>Meus pedidos</span>
+        </div>
       </div>
-      <div>
+      <div id={styles.right_container}>
         {view === 0 && 
           <Infos />
         }

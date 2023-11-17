@@ -44,22 +44,23 @@ export default function Favoritos() {
   }
 
   return(
-    <div>
-      <div id={styles.cabecalho}>
-        <p id={styles.p1}>Produto</p>
-        <p id={styles.p2}>Preço</p>
+    <div id={styles.favoritos_container}>
+      <h2>Favoritos</h2>
+      <div id={styles.favoritos_cabecalho}>
+        <p id={styles.favoritos_p1}>Produto</p>
+        <p id={styles.favoritos_p2}>Preço</p>
       </div>
       {favoritos.map((produto) => {
-        return <div key={produto.id} id={styles.product_container}>
-          <div id={styles.product}>
+        return <div key={produto.id} id={styles.favoritos_product_container}>
+          <div id={styles.favoritos_product}>
             <img src="/images/ui/categoria_temporaria.png" alt={produto.nome}/>
             <h3>{produto.nome}</h3>
           </div>
-          <div id={styles.valor}>
+          <div id={styles.favoritos_valor}>
             <h5>R$ {produto.precoAnterior}</h5>
             <h2>R$ {produto.preco}</h2>
-            <button onClick={() => {handleProduct(produto.id)}}>Ver</button>
           </div>
+          <button onClick={() => {handleProduct(produto.id)}}>Ver</button>
         </div>
       })}
     </div>
