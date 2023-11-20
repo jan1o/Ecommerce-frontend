@@ -1,0 +1,49 @@
+.produto {
+  width: 315px;
+  height: 340px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  background-color: white;
+  color: rgb(56, 56, 56);
+  cursor: pointer;
+}
+
+.produto img {
+  width: 300px;
+  height: 210px;
+  padding-left: 7px;
+  margin-top: 5px;
+}
+
+.produto p {
+  padding-left: 7px;
+  margin-top: 10px;
+  margin-bottom: 0;
+  font-weight: bold;
+}
+
+.produto div {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  padding-left: 7px;
+}
+
+.produto div img {
+  width: 20px;
+  height: 25px;
+}
+
+.produto h4 {
+  color: gray;
+  text-decoration: line-through;
+  padding-left: 7px;
+  margin-bottom: 0;
+  margin-top: 5px;
+}
+
+.produto h2 {
+  padding-left: 7px;
+  margin-top: 0;
+}

@@ -5,46 +5,49 @@ import styles from './page.module.css'
 
 import { useRouter } from 'next/navigation'
 
+import ProductCard from './components/products/productCard'
+import CategoryCard from './components/products/categoryCard'
+
 const categorias = [
   {
     id: 1,
     nome: "Categoria 1",
-    img: "/images/ui/categoria_temporaria.png"
+    imagem: "/images/ui/categoria_temporaria.png"
   },
   {
     id: 2,
     nome: "Categoria 2",
-    img: "/images/ui/categoria_temporaria.png"
+    imagem: "/images/ui/categoria_temporaria.png"
   },
   {
     id: 3,
     nome: "Categoria 3",
-    img: "/images/ui/categoria_temporaria.png"
+    imagem: "/images/ui/categoria_temporaria.png"
   },
   {
     id: 4,
     nome: "Categoria 4",
-    img: "/images/ui/categoria_temporaria.png"
+    imagem: "/images/ui/categoria_temporaria.png"
   },
   {
     id: 5,
     nome: "Categoria 5",
-    img: "/images/ui/categoria_temporaria.png"
+    imagem: "/images/ui/categoria_temporaria.png"
   },
   {
     id: 6,
     nome: "Categoria 6",
-    img: "/images/ui/categoria_temporaria.png"
+    imagem: "/images/ui/categoria_temporaria.png"
   },
   {
     id: 7,
     nome: "Categoria 7",
-    img: "/images/ui/categoria_temporaria.png"
+    imagem: "/images/ui/categoria_temporaria.png"
   },
   {
     id: 8,
     nome: "Categoria 8",
-    img: "/images/ui/categoria_temporaria.png"
+    imagem: "/images/ui/categoria_temporaria.png"
   },
 ];
 
@@ -104,9 +107,8 @@ export default function Home() {
       <div id={styles.categorias}>
         {categorias.map((categoria) => {
           return <div key={categoria.id} onClick={() => {handleSearchCategory(categoria.nome)}}>
-                  <img src={categoria.img} alt={categoria.nome}/>
-                  <p>{categoria.nome}</p>
-                </div>
+            <CategoryCard nome={categoria.nome} imagem={categoria.imagem} />
+          </div>
         })}
       </div>
 
@@ -114,16 +116,15 @@ export default function Home() {
         <h3>O que há de melhor</h3>
         <div className={styles.produtos_container}>
           {produtos.map((produto) => {
-            return <div className={styles.produto} key={produto.id} onClick={() => handleProduct(produto.id)}>
-                    <img src={produto.imagem} alt={produto.nome}/>
-                    <p>{produto.nome}</p>
-                    <div>
-                      <img src='/like'/>
-                      <p>{produto.likes}</p>
-                    </div>
-                    <h4>R$ {produto.precoAnterior}</h4>
-                    <h2>R$ {produto.preco}</h2>
-                  </div>
+            return <div key={produto.id} onClick={() => handleProduct(produto.id)}>
+              <ProductCard 
+                nome={produto.nome} 
+                imagem={produto.imagem} 
+                likes={produto.likes} 
+                precoAnterior={produto.precoAnterior} 
+                preco={produto.preco}
+              />
+            </div>
           })}
         </div>
       </div>
@@ -132,16 +133,15 @@ export default function Home() {
         <h3>O que há de mais novo</h3>
         <div className={styles.produtos_container}>
           {produtos.map((produto) => {
-            return <div className={styles.produto} key={produto.id} onClick={() => handleProduct(produto.id)}>
-                    <img src={produto.imagem} alt={produto.nome}/>
-                    <p>{produto.nome}</p>
-                    <div>
-                      <img src='/like'/>
-                      <p>{produto.likes}</p>
-                    </div>
-                    <h4>R$ {produto.precoAnterior}</h4>
-                    <h2>R$ {produto.preco}</h2>
-                  </div>
+            return <div key={produto.id} onClick={() => handleProduct(produto.id)}>
+              <ProductCard 
+                nome={produto.nome} 
+                imagem={produto.imagem} 
+                likes={produto.likes} 
+                precoAnterior={produto.precoAnterior} 
+                preco={produto.preco}
+              />
+            </div>
           })}
         </div>
       </div>
