@@ -1,9 +1,9 @@
 import './globals.css'
 import styles from './layout.module.css'
 
-import Head from './components/head.js'
-import Footer from './components/footer.js'
-import Navbar from './components/navbar'
+import Head from './components/generals/head.js'
+import Footer from './components/generals/footer.js'
+import Navbar from './components/generals/navbar'
 
 export const metadata = {
   title: 'MyCommerce',
