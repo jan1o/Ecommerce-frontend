@@ -1,6 +1,6 @@
 "use client"
 
-import styles from "./style.module.css"
+import styles from "./pedidos.module.css"
 
 const pedidos = [
   {

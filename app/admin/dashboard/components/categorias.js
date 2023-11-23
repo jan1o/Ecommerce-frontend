@@ -1,6 +1,6 @@
 "use client"
 
-import styles from "./style.module.css"
+import styles from "./categorias.module.css"
 
 import { useState, useEffect } from "react";
 
@@ -78,14 +78,17 @@ export default function Categorias(){
   }
 
   return(
-    <div>
+    <div id={styles.categorias_container}>
+      <h2>Categorias</h2>
       <button onClick={handleAddCategory}>Nova Categoria</button>
       {categorias.map((categoria) => {
-        return <div key={categoria.id}>
+        return <div key={categoria.id} className={styles.categoria_container}>
           <img src={categoria.imagem} />
-          <p>{categoria.nome}</p>
-          <button onClick={() => openCategory(categoria.id)}>Editar</button>
-          <button onClick={() => deleteCategory(categoria.id)}>Excluir</button>
+          <div>
+            <p>{categoria.nome}</p>
+            <button onClick={() => openCategory(categoria.id)}>Editar</button>
+            <button className={styles.delete} onClick={() => deleteCategory(categoria.id)}>Excluir</button>
+          </div>
         </div>
       })}
       {panelActive && <CategoriaPanel id={categoria} panelActivity={panelActivity}/>}

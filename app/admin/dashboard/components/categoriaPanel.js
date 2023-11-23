@@ -1,8 +1,8 @@
 "use client"
 
-import styles from "./style.module.css"
+import styles from "./categoriaPanel.module.css"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 
 const categoria = {
   id: 1,
@@ -21,11 +21,24 @@ export default function CategoriaPanel({ id, panelActivity }){
   }, [])
 
   const [nome, setNome] = useState("");
-  const [imagem, setImagem] = useState("");
+
+
+  const img = useRef();
+
+  const handleImage = (e) => {
+    e.preventDefault();
+
+    const imagem = new Image();
+    imagem.src = URL.createObjectURL(img.current.files[0]);
+    imagem.onload = () => {
+      setCat((prevStates) => ({...prevStates, imagem: imagem.src}));
+    }
+  }
 
   return(
-    <div>
-      <h2>Categoria</h2>
+    <div id={styles.container}>
+      {id ? <h2>Editar categoria</h2> : <h2>Nova Categoria</h2>}
+
       <div>
         <form>
           <label>
@@ -34,7 +47,7 @@ export default function CategoriaPanel({ id, panelActivity }){
           </label>
           <label>
             <span>Imagem:</span>
-            <input type="file" placeholder="Selecione a imagem" onChange={(e) => setImagem(e.target.files[0])}/>
+            <input ref={img} type="file" placeholder="Selecione a imagem" onChange={handleImage}/>
           </label>
         </form>
         <img src={cat.imagem} />
