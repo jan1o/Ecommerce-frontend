@@ -6,7 +6,6 @@ import { useSearchParams } from 'next/navigation'
 import { useRouter } from "next/navigation"
 
 import ProductCard from "../components/products/productCard"
-import CategoryCard from "../components/products/categoryCard";
 
 const categorias = [
   {

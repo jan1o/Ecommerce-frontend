@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 const produtos = [
   {
-    id: 1,
+    id: "1",
     imagem: "/images/ui/categoria_temporaria.png",
     nome: "Produto 1",
     likes: 20,
@@ -56,30 +56,28 @@ export default function Produtos(){
   }
 
   return(
-    <div>
+    <div id={styles.produtos_container}>
       <h2>Produtos</h2>
       <button onClick={handleAdd}>Add Novo</button>
-      <div>
-        <p>Id</p>
-        <p>Imagem</p>
-        <p>Nome</p>
-        <p>Preço</p>
-        <p>Edição</p>
-      </div>
-      <div>
-        {produtos.map((produto) => {
-          return <div key={produto.id}>
-            <h3>{produto.id}</h3>
-            <img src={produto.imagem}/>
-            <h3>{produto.nome}</h3>
-            <h3>{produto.preco}</h3>
-            <div>
-              <button onClick={() => handleEdit(produto.id)}>Editar</button>
-              <button onClick={() => handleDelete(produto.id)}>Deletar</button>
-            </div>
+      {produtos.map((produto) => {
+        return <div key={produto.id} className={styles.produto_container}>
+          <div>
+            <p>{produto.id}</p>
           </div>
-        })}
-      </div>
+          <div>
+            <img src={produto.imagem}/>
+          </div>
+          <div>
+            <p>{produto.nome}</p>
+            <h4>R$ {produto.precoAnterior}</h4>
+            <h3>R$ {produto.preco}</h3>
+          </div>
+          <div>
+            <button onClick={() => handleEdit(produto.id)}>Editar</button>
+            <button onClick={() => handleDelete(produto.id)}>Deletar</button>
+          </div>
+        </div>
+      })}
     </div>
   )
 }
