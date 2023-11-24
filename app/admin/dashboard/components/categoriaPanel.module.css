@@ -1,0 +1,21 @@
+#container {
+  position: fixed;
+  width: 80vw;
+  height: 100vh;
+  background-color: #121212;
+  top: 10%;
+  left: 21%;
+  z-index: 100;
+}
+
+#container button {
+  margin-right: 10px;
+}
+
+#container img {
+  width: 100px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  border: 1px dashed gray;
+  padding: 10px 10px;
+}

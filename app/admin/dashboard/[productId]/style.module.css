@@ -1,0 +1,107 @@
+#produto_container {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#infos {
+  width: 80%;
+  border-bottom: 1px solid gray;
+  margin-bottom: 50px;
+  margin-top: 50px;
+  margin-left: 10%;
+  padding-bottom: 10px;
+}
+
+#espec {
+  width: 80%;
+  border-bottom: 1px solid gray;
+  margin-bottom: 50px;
+  margin-left: 10%;
+  padding-bottom: 10px;
+}
+
+#espec_infos {
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed gray;
+}
+
+.espec_add {
+  display: flex;
+  margin-bottom: 5px;
+
+}
+
+.left_espec {
+  display: flex;
+  align-items: center;
+  background-color: gray;
+  border-right: 1px solid black;
+  width: 25%;
+  padding-left: 10px;
+  height: 100%;
+}
+
+.right_espec {
+  display: flex;
+  align-items: center;
+  background-color: darkgray;
+  width: 100%;
+  padding-left: 10px;
+  height: 100%;
+}
+
+.espec_add button {
+  margin-left: 5px;
+  width: 75px;
+  font-size: 20px;
+  background-color: #d60707;
+}
+
+#imagens {
+  width: 80%;
+  border-bottom: 1px solid gray;
+  margin-bottom: 50px;
+  margin-left: 10%;
+  padding-bottom: 10px;
+}
+
+#imagens_infos {
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed gray;
+}
+
+.imagem_add {
+  margin-bottom: 50px;
+}
+
+.imagem_add img {
+  max-width: 100px;
+  height: auto;
+  margin-right: 40px;
+}
+
+.imagem_add button {
+  width: 50px;
+  font-size: 20px;
+  background-color: #d60707;
+  max-height: 50px;
+}
+
+#save {
+  width: 100px;
+  height: 50px;
+  margin-right: 20px;
+}
+
+#end {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+#cancel {
+  width: 100px;
+  height: 50px;
+  background-color: #d60707;
+}

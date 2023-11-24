@@ -42,5 +42,8 @@ Abaixo devem ser listados todos os commits realizados (com exceção dos commits
 | 014 | 0.2.1 | Página de profile criada e componentes de informações do usuário, produtos favoritos e pedidos realizados, ambos relacionados ao profile. Ainda não foi inicializada a estilização da página e de seus componentes. |
 | 015 | 0.2.1 | Página de profile e seus componentes todos estilizados. |
 | 016 | 0.2.1 | Página de search estilizada e componentes de produto e de categoria criados e estilizados. |
-
+| 017 | 0.2.1 | Página de dashboard de administrador criada e estilizada; Componentes de pedidos no dashboard criado e estilizado; Componentes de categorias no dashboard criados, mas não estilizados; Componentes de produtos no dashboard ainda não estruturado. |
+| 018 | 0.2.1 | Componente de produtos do dashboard estruturado, mas não estilizado; página criação e edição de produto do dashboard estruturado, mas não estilizado. |
+| 019 | 0.2.1 | Componente de categorias e categoriaPanel do dashboard de adm estilizadas. |
+| 020 | 0.2.1 | Componente de produtos do dashboard estilizada e página de criação/edição de produtos do dashboard estilizada. |
 
