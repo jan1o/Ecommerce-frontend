@@ -3,7 +3,7 @@
 import styles from "./style.module.css"
 
 import { useSearchParams } from 'next/navigation'
-import { useRouter } from "next/navigation"
+import { useRouter } from "next/navigation" 
 
 import ProductCard from "../components/products/productCard"
 

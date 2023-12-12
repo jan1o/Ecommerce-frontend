@@ -46,4 +46,5 @@ Abaixo devem ser listados todos os commits realizados (com exceção dos commits
 | 018 | 0.2.1 | Componente de produtos do dashboard estruturado, mas não estilizado; página criação e edição de produto do dashboard estruturado, mas não estilizado. |
 | 019 | 0.2.1 | Componente de categorias e categoriaPanel do dashboard de adm estilizadas. |
 | 020 | 0.2.1 | Componente de produtos do dashboard estilizada e página de criação/edição de produtos do dashboard estilizada. |
+| 021 | 0.3.1 | Página inicial configurada com a api. |
 
