@@ -2,13 +2,11 @@
 
 import { useState, useEffect } from 'react'
 
-import { getUser } from "@/utils/userUtils"
-
 import authService from "../services/authService"
 
 export const useAuth = () => {
 
-  //codigo provisorio enquanto api nao funciona
+  /*codigo provisorio enquanto api nao funciona
   const [auth, setAuth] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -17,29 +15,39 @@ export const useAuth = () => {
     setLoading(false);
   }, []);
 
-  return [auth, loading];
+  return [auth, loading];*/
 
 
-
-  /* codigo original para quando o backend estuver funcional
+  //codigo original para quando o backend estuver funcional
+  //const [user, setUser] = useState();
   const [user, setUser] = useState();
 
   const [auth, setAuth] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  /*
   useEffect(() => {
     //let usuario = null;
     //if(typeof window !== 'undefined'){
       //usuario = JSON.parse(localStorage.getItem('user'));
     //}
 
-    const usuario = getUser();
-    setUser(usuario);
+    getUserInformations();
   }, []);
 
-  useEffect(async () => {
+  const getUserInformations = () => {
+    const usuario = getUser();
+    setUser(usuario);
+  }*/
+
+  const validate = async() => {
+    const res = await authService.validateUser(user.token);
+    return res;
+  }
+
+  useEffect(() => {
     if(user){
-      await authService.validateUser(user.token).then((data) => {
+      const res = validate().then((data) => {
         if(data.status === 201){
           setAuth(true);
         }
@@ -55,8 +63,8 @@ export const useAuth = () => {
     }
   }, [user]);
 
-  return auth, loading;
-  */
+  return [auth, loading, setUser];
+  
 
 
 }

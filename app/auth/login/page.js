@@ -9,20 +9,27 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 import { useAuth } from '@/hooks/useAuth'
+import authService from '@/services/authService'
 
 import Message from '@/app/components/message'
 
 export default function Login() {
 
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const [responseState, setResponseState] = useState(false);
 
-  const [auth, loading] = useAuth();
+  const [auth, loading, getUserInformations] = useAuth();
 
-  const handleSubmit = () => {
-    return;
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = {
+      email: email,
+      password: password
+    }
+
+    const res = authService.login(data).then(redirect());
   }
 
   const router = useRouter();
@@ -41,7 +48,7 @@ export default function Login() {
         <h2>MyCommerce</h2>
         <p className={styles.subtitle}>Faça login para acessar nossas ferramentas</p>
         <form onSubmit={handleSubmit}>
-          <input type="text" placeholder="Nome de Usuário" onChange={(e) => setUsername(e.target.value)} value={username || ''} />
+          <input type="text" placeholder="Email" onChange={(e) => setEmail(e.target.value)} value={email || ''} />
           <input type="password" placeholder="Senha" onChange={(e) => setPassword(e.target.value)} value={password || ''} />
           <input type="submit" value="Entrar" />
           {responseState && <Message msg={responseState} type="error"/>}

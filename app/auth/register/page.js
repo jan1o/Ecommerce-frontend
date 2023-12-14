@@ -7,6 +7,8 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
 import Link from 'next/link';
 
+import authService from '@/services/authService';
+
 import Loading from '@/app/loading';
 
 export default function Register() {
@@ -16,6 +18,8 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const router = useRouter();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,10 +31,10 @@ export default function Register() {
       confirmPassword
     }
 
-    console.log(user);
+    authService.register(user);
+    router.back();
   }
 
-  const router = useRouter();
   const redirect = () => {
     router.push("/");
   }

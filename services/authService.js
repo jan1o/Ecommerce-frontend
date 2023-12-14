@@ -29,7 +29,7 @@ const login = async (data) => {
 
   try {
     
-    const res = await fetch(api + "/login", config).then((res) => res.json()).catch((err) => err);
+    const res = await fetch(api + "/users/login", config).then((res) => res.json()).catch((err) => err);
 
     if(res._id) {
       localStorage.setItem("user", JSON.stringify(res));
@@ -48,7 +48,7 @@ const validateUser = async (token) => {
 
   try {
 
-    const res = await fetch(api + "/authGuard", config);
+    const res = await fetch(api + "/users/validateUser", config);
 
     return res;
 

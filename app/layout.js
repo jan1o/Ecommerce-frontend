@@ -1,6 +1,8 @@
 import './globals.css'
 import styles from './layout.module.css'
 
+import { UserContextProvider } from '@/context/store'
+
 import Head from './components/generals/head.js'
 import Footer from './components/generals/footer.js'
 import Navbar from './components/generals/navbar'
@@ -16,13 +18,13 @@ export default function RootLayout({ children }) {
       <Head />
 
       <body>
-        
-        <Navbar />
-        <div id={styles.container}>
-          {children}
-        </div>
-        
-        <Footer />
+        <UserContextProvider>
+          <Navbar />
+          <div id={styles.container}>
+            {children}
+          </div>
+          <Footer />
+        </UserContextProvider>
       </body>
 
 

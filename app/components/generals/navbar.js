@@ -5,15 +5,21 @@ import Link from 'next/link'
 
 import { BsSearch, BsHouseDoorFill, BsFillPersonFill, BsFillCartFill, BsBoxArrowRight } from 'react-icons/bs'
 
-import { useState } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import { UserContext } from '@/context/store'
 import { useAuth } from '@/hooks/useAuth'
-import { getUser } from '@/utils/userUtils'
 import { useRouter } from 'next/navigation'
 
-export default function Navbar(){
 
-  const [ auth ] = useAuth();
-  const [user, setUser] = useState(getUser());
+import authService from '@/services/authService'
+
+export default function Navbar(){
+  const {userSession, setUserSession} = useContext(UserContext);
+  /*const [auth, loading, setUser] = useAuth();
+
+  useEffect(() => {
+    setUser(userSession);
+  }, [userSession]);*/
 
   const router = useRouter();
 
@@ -27,8 +33,7 @@ export default function Navbar(){
   }
 
   const handleLogout = () => {
-    //logout
-    console.log("logout");
+    authService.logout();
   }
 
   return (
@@ -40,16 +45,14 @@ export default function Navbar(){
         <input type='text' placeholder='Pesquisar' onChange={(e) => setQuery(e.target.value)}/>
       </form>
       <ul id={styles.nav_links}>
-        {auth ? (
+        {userSession ? (
           <>
             <li>
               <Link href="/"><BsHouseDoorFill/></Link>
             </li>
-            {user && 
-              <li>
-                <Link href={'/cart'}><BsFillCartFill /></Link>
-              </li>
-            }
+            <li>
+              <Link href={'/cart'}><BsFillCartFill /></Link>
+            </li>
             <li>
               <Link href="/profile"><BsFillPersonFill /></Link>
             </li>
