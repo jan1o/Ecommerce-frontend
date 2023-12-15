@@ -1,7 +1,7 @@
 import './globals.css'
 import styles from './layout.module.css'
 
-import { UserContextProvider } from '@/context/store'
+import { StoreProvider } from '@/utils/storeProvider'
 
 import Head from './components/generals/head.js'
 import Footer from './components/generals/footer.js'
@@ -18,13 +18,13 @@ export default function RootLayout({ children }) {
       <Head />
 
       <body>
-        <UserContextProvider>
+        <StoreProvider>
           <Navbar />
           <div id={styles.container}>
             {children}
           </div>
           <Footer />
-        </UserContextProvider>
+        </StoreProvider>
       </body>
 
 

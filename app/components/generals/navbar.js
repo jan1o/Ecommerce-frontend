@@ -6,22 +6,18 @@ import Link from 'next/link'
 import { BsSearch, BsHouseDoorFill, BsFillPersonFill, BsFillCartFill, BsBoxArrowRight } from 'react-icons/bs'
 
 import { useState, useEffect, useContext } from 'react'
-import { UserContext } from '@/context/store'
 import { useAuth } from '@/hooks/useAuth'
 import { useRouter } from 'next/navigation'
 
-
-import authService from '@/services/authService'
+import { useDispatch, useSelector } from 'react-redux'
+import { logout, reset } from "@/slices/authSlice"
 
 export default function Navbar(){
-  const {userSession, setUserSession} = useContext(UserContext);
-  /*const [auth, loading, setUser] = useAuth();
-
-  useEffect(() => {
-    setUser(userSession);
-  }, [userSession]);*/
+  const [auth] = useAuth();
+  const {user} = useSelector((state) => state.auth);
 
   const router = useRouter();
+  const dispath = useDispatch();
 
   const [query, setQuery] = useState("");
   const handleSearch = (e) => {
@@ -33,7 +29,10 @@ export default function Navbar(){
   }
 
   const handleLogout = () => {
-    authService.logout();
+    dispath(logout());
+    dispath(reset());
+
+    router.push("/auth/login");
   }
 
   return (
@@ -45,7 +44,7 @@ export default function Navbar(){
         <input type='text' placeholder='Pesquisar' onChange={(e) => setQuery(e.target.value)}/>
       </form>
       <ul id={styles.nav_links}>
-        {userSession ? (
+        {auth ? (
           <>
             <li>
               <Link href="/"><BsHouseDoorFill/></Link>

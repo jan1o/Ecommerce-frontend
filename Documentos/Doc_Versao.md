@@ -9,4 +9,5 @@ As versões devem obedecer o padrão **0.0.0** onde o *primeiro dígito* se refe
 | 0.1.0 | Criação e inicialização do sistema. | Nenhum alerta pertinente. |
 | 0.1.1 | [Solved] Bug hydratation do footer. | Nenhum alerta pertinente. |
 | 0.2.1 | Funcionalidade de login e signin concluida. | Logout ainda não disponível. |
-| 0.3.1 | Página principal funcional. |
+| 0.3.1 | Página principal funcional. | Nenhum alerta pertinente. |
+| 0.4.2 | Funcionalidades de login, register e logout implementadas com redux. Problemas com session resovidos quando o redux foi implementado. | Nenhum alerta pertinente. |
