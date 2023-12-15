@@ -49,4 +49,4 @@ Abaixo devem ser listados todos os commits realizados (com exceção dos commits
 | 021 | 0.3.1 | Página inicial configurada com a api. |
 | 022 | 0.3.1 | Criação do context de usuário para sessão. |
 | 023 | 0.4.2 | Funcionalidades de login, register e logout implementadas com redux e localStorage. |
-
+| 024 | 0.5.2 | Funcionalidade de search implementada. |
