@@ -8,29 +8,46 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
+import { useDispatch, useSelector } from "react-redux";
+import {login, reset} from "@/slices/authSlice"
+
 import { useAuth } from '@/hooks/useAuth'
 
 import Message from '@/app/components/message'
 
 export default function Login() {
 
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [responseState, setResponseState] = useState(false);
+  const {loading, error} = useSelector((state) => state.auth);
 
-  const [auth, loading] = useAuth();
+  const [auth, load] = useAuth();
 
-  const handleSubmit = () => {
-    return;
+  const dispatch = useDispatch()
+  const router = useRouter();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const user = {
+      email,
+      password
+    };
+
+    dispatch(login(user));
   }
 
-  const router = useRouter();
+  //Clean all auth states
+  useEffect(() => {
+    dispatch(reset());
+  }, [dispatch]);
+
   const redirect = () => {
     router.push("/");
   }
 
-  if(loading){
+  if(load){
     return <Loading />
   }
   if(auth){
@@ -41,10 +58,11 @@ export default function Login() {
         <h2>MyCommerce</h2>
         <p className={styles.subtitle}>Faça login para acessar nossas ferramentas</p>
         <form onSubmit={handleSubmit}>
-          <input type="text" placeholder="Nome de Usuário" onChange={(e) => setUsername(e.target.value)} value={username || ''} />
+          <input type="text" placeholder="Email" onChange={(e) => setEmail(e.target.value)} value={email || ''} />
           <input type="password" placeholder="Senha" onChange={(e) => setPassword(e.target.value)} value={password || ''} />
-          <input type="submit" value="Entrar" />
-          {responseState && <Message msg={responseState} type="error"/>}
+          {!loading && <input type="submit" value="Entrar" />}
+          {loading && <input type="submit" value="Aguarde..." disabled />}
+          {error && <Message msg={error} type="error"/>}
         </form>
         <p>Não tem uma conta? <Link href="/auth/register">Clique aqui</Link></p>
       </div>

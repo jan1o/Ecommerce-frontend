@@ -5,17 +5,19 @@ import Link from 'next/link'
 
 import { BsSearch, BsHouseDoorFill, BsFillPersonFill, BsFillCartFill, BsBoxArrowRight } from 'react-icons/bs'
 
-import { useState } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useAuth } from '@/hooks/useAuth'
-import { getUser } from '@/utils/userUtils'
 import { useRouter } from 'next/navigation'
 
-export default function Navbar(){
+import { useDispatch, useSelector } from 'react-redux'
+import { logout, reset } from "@/slices/authSlice"
 
-  const [ auth ] = useAuth();
-  const [user, setUser] = useState(getUser());
+export default function Navbar(){
+  const [auth] = useAuth();
+  const {user} = useSelector((state) => state.auth);
 
   const router = useRouter();
+  const dispath = useDispatch();
 
   const [query, setQuery] = useState("");
   const handleSearch = (e) => {
@@ -27,8 +29,10 @@ export default function Navbar(){
   }
 
   const handleLogout = () => {
-    //logout
-    console.log("logout");
+    dispath(logout());
+    dispath(reset());
+
+    router.push("/auth/login");
   }
 
   return (
@@ -45,11 +49,9 @@ export default function Navbar(){
             <li>
               <Link href="/"><BsHouseDoorFill/></Link>
             </li>
-            {user && 
-              <li>
-                <Link href={'/cart'}><BsFillCartFill /></Link>
-              </li>
-            }
+            <li>
+              <Link href={'/cart'}><BsFillCartFill /></Link>
+            </li>
             <li>
               <Link href="/profile"><BsFillPersonFill /></Link>
             </li>

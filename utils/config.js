@@ -3,7 +3,7 @@ export const api = "http://localhost:5000/api";
 export const requestConfig = (method, data, token = null) => {
   let config;
 
-  if(method === "DELETE" || data === null) { //DELETE
+  if(method === "DELETE" || data === null) { //DELETE e PUT vazio
     config = {
       method,
       headers: {},

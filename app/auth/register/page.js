@@ -7,35 +7,52 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
 import Link from 'next/link';
 
+import { useSelector, useDispatch } from "react-redux"
+import {register, reset} from "@/slices/authSlice"
+
 import Loading from '@/app/loading';
+import Message from '@/app/components/message';
 
 export default function Register() {
-  const [auth, loading] = useAuth();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const dispatch = useDispatch();
+
+  const {loading, error} = useSelector((state) => state.auth);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     const user = {
       name,
       email,
       password,
       confirmPassword
-    }
+    };
 
-    console.log(user);
-  }
+    dispatch(register(user));
+  };
+
+  //clean all auth states
+  useEffect(() => {
+    dispatch(reset());
+  }, [dispatch]);
+
+
+  //redirect
+  const [auth, load] = useAuth();
 
   const router = useRouter();
+
   const redirect = () => {
     router.push("/");
   }
 
-  if(loading){
+  if(load){
     return <Loading />
   }
   if(auth){
@@ -50,7 +67,9 @@ export default function Register() {
           <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
           <input type="password" placeholder="Senha" value={password} onChange={(e) => setPassword(e.target.value)}/>
           <input type="password" placeholder="Confirme a senha" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}/>
-          <input type="submit" value="Cadastrar" />
+          {!loading && <input type="submit" value="Cadastrar" />}
+          {loading && <input type="submit" value="Aguarde..." disabled />}
+          {error && <Message msg={error} type="error"/>}
         </form>
         <p>
           Já tem conta? <Link href="/auth/login">Clique aqui.</Link>
