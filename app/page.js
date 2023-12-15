@@ -22,9 +22,9 @@ export default function Home() {
 
   const getDataFromServer = async () => {
     const [res1, res2, res3] = await Promise.all([
-      fetch('http://localhost:5000/api/categories/'),
-      fetch('http://localhost:5000/api/products/newest'),
-      fetch('http://localhost:5000/api/products/best')
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories/`),
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/newest`),
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/best`)
     ]);
 
     setCategorias(await res1.json());
@@ -50,7 +50,7 @@ export default function Home() {
       </div>
       <div id={styles.categorias}>
         {categorias.map((categoria) => {
-          return <div key={categoria._id} onClick={() => {handleSearchCategory(categoria.name)}}>
+          return <div key={categoria._id} onClick={() => {handleSearchCategory(categoria._id)}}>
             <CategoryCard nome={categoria.name} imagem={categoria.image} />
           </div>
         })}

@@ -6,7 +6,7 @@ export default function ProductCard({ name, image, likes, previousPrice, price }
       <img src={image} alt={name} />
       <p>{name}</p>
       <div>
-        <img src="/like" />
+        <img src="/like"/>
         <p>{likes}</p>
       </div>
       <h4>{previousPrice}</h4>

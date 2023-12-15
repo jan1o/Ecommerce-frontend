@@ -11,3 +11,4 @@ As versões devem obedecer o padrão **0.0.0** onde o *primeiro dígito* se refe
 | 0.2.1 | Funcionalidade de login e signin concluida. | Logout ainda não disponível. |
 | 0.3.1 | Página principal funcional. | Nenhum alerta pertinente. |
 | 0.4.2 | Funcionalidades de login, register e logout implementadas com redux. Problemas com session resovidos quando o redux foi implementado. | Nenhum alerta pertinente. |
+| 0.5.2 | Funcionalidade de search implementada. | Nenhum alerta pertinente. |
