@@ -15,32 +15,42 @@ export default function Infos() {
   const [message, setMessage] = useState({});
 
   useEffect(() => {
-    //setUsuario({nome: "Jânio Fernandes", nascimento: "14/09/1998", telefone: "84999163036", imagem: "/images/ui/categoria_temporaria.png", email: "janiojr14@hotmail.com", login: "Jan1o", senha: "janio123"});
-    let userGet = null;
-    getUserData().then((res) => setUser({name: res.name, telephone: res.telephone, image: res.image, email: res.email, password: ""}));
+    userServices.getUser().then((res) => setUser({name: res.name, birth: res.birth, telephone: res.telephone, image: res.image, email: res.email, password: ""}));
 
   }, []);
 
-  const getUserData = async() => {
-    const res = await userServices.getUser();
-    return res;
-  }
+  const handleSubmit = async(e) => {
+    e.preventDefault();
 
+    //build form data
+    const userData = {}
 
-  const handleSubmit = async() => {
-    const res = await fetch(api + "/users/")
-    const status = res.status;
-    await res.json();
-
-    //error
-    if(status === 422){
-      setMessage({text: await res.json(), type: error});
+    if(user.name) {
+      userData.name = user.name;
     }
-    //ok
-    else if(status === 200){
-      setUser({name: res.name, birth: res.birth, telephone: res.telephone, image: res.image, email: res.email, password: ""});
-      setMessage({text: "Usuário atualizado com sucesso.", type: "success"});
+    if(user.birth){
+      userData.birth = user.birth;
     }
+    if(user.telephone){
+      userData.telephone = user.telephone
+    }
+    if(user.image){
+      userData.image = user.image;
+    }
+    if(user.password){
+      userData.password = user.password;
+    }
+
+    userServices.updateUser(userData).then((res) => {
+      if(res.errors){
+        setMessage({text: res.errors[0], type: "error"});
+      }
+      else{
+        setUser({name: res.name, birth: res.birth, telephone: res.telephone, image: res.image, email: res.email, password: ""});
+        setMessage({text: "Usuário atualizado com sucesso.", type: "success"});
+      }
+    });
+
     
   }
 
@@ -71,11 +81,11 @@ export default function Infos() {
           </label>
           <label>
             <span>Image do Perfil:</span>
-            <input type="file" onChange={(e) => setUsuario(prevState => ({...prevState, image: e.target.files[0]}))}/>
+            <input type="file" onChange={(e) => setUser(prevState => ({...prevState, image: e.target.files[0]}))}/>
           </label>
           <label>
             <span>Quer alterar sua senha?</span>
-            <input type="password" placeholder="Digite sua nova senha" onChange={(e) => setPassword(e.target.value)} value={user.password || ""}/>
+            <input type="password" placeholder="Digite sua nova senha" onChange={(e) => setUser(prevState => ({...prevState, password: e.target.value}))} value={user.password || ""}/>
           </label>
           <input type="submit" value="Atualizar" />
           {message && <Message msg={message.text} type={message.type}/>}

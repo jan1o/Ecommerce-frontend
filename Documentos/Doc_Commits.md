@@ -51,3 +51,4 @@ Abaixo devem ser listados todos os commits realizados (com exceção dos commits
 | 023 | 0.4.2 | Funcionalidades de login, register e logout implementadas com redux e localStorage. |
 | 024 | 0.5.2 | Funcionalidade de search implementada. |
 | 025 | 0.5.2 | Get profile na página de usuário implementado. |
+| 026 | 0.5.2 | Update de profile funcionando, mas sem upload de imagem. |

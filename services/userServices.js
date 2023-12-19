@@ -1,28 +1,37 @@
 import { api, requestConfig } from "@/utils/config"
+import { getUser as getUserToken } from "@/utils/userUtils";
+import awsService from "./awsServices";
 
 const getUser = async() => {
-  let token = null;
-  if(typeof window !== 'undefined'){
-    token = JSON.parse(localStorage.getItem('user')).token;
-  }
+  const token = getUserToken().token;
   const config = requestConfig("GET", null, token);
-
+  
   const res = await fetch(api + "/users/profile", config).then((res) => res.json());
 
   return res;
 }
 
-const updateUser = async(data, token) => {
+const updateUser = async(data) => {
+  if(data.image){
+    const image = data.image;
+
+    let imageURL;
+    awsService.sendFile(image, "users").then((res) => imageURL = res.data);
+    
+    data.image = imageURL;
+  }
+
+  const token = getUserToken().token;
+
   const config = requestConfig("PUT", data, token);
 
  try {
   
-  const res = await fetch(api + "/users/", config);
-
+  const res = await fetch(api + "/users/", config).then((res) => res.json());
   return res;
 
  } catch (error) {
-  console.log(error);
+  console.log("error");
  }
 }
 
