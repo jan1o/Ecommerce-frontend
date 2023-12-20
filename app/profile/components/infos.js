@@ -12,6 +12,8 @@ import Message from "@/app/components/message"
 export default function Infos() {
   const [user, setUser] = useState({name: "", birth: "", telephone: "", image: "", email: "", password: ""});
 
+  const [profileImage, setProfileImage] = useState();
+
   const [message, setMessage] = useState({});
 
   useEffect(() => {
@@ -34,8 +36,8 @@ export default function Infos() {
     if(user.telephone){
       userData.telephone = user.telephone
     }
-    if(user.image){
-      userData.image = user.image;
+    if(profileImage){
+      userData.image = profileImage;
     }
     if(user.password){
       userData.password = user.password;
@@ -81,7 +83,7 @@ export default function Infos() {
           </label>
           <label>
             <span>Image do Perfil:</span>
-            <input type="file" onChange={(e) => setUser(prevState => ({...prevState, image: e.target.files[0]}))}/>
+            <input type="file" onChange={(e) => {setProfileImage(e.target.files[0]); setUser(prevState => ({...prevState, image: URL.createObjectURL(e.target.files[0])}))}}/>
           </label>
           <label>
             <span>Quer alterar sua senha?</span>

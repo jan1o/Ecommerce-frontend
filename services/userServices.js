@@ -15,9 +15,12 @@ const updateUser = async(data) => {
   if(data.image){
     const image = data.image;
 
-    let imageURL;
-    awsService.sendFile(image, "users").then((res) => imageURL = res.data);
+    const randomName = Date.now() + image.name;
+
+    awsService.sendFile(image, "users", randomName);
     
+    const imageURL = "https://mycommercetutorial.s3.sa-east-1.amazonaws.com/users/" + randomName
+    console.log("URL da imagem: " + imageURL);
     data.image = imageURL;
   }
 
