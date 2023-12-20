@@ -24,7 +24,13 @@ Você pode encontrar uma simples documentação do sistema acessando [Link para 
 Lembre-se de incializar um arquivo .env para variáveis de ambiente. Este arquivo não deve ser versionado no git, mas a seguir você encontra as variáveis que deve preencher com seus próprios dados para que o sistema funcione perfeitamente:
 
 ``` 
-  AWS_SECRET: *****
+  NEXT_PUBLIC_API_URL=*******
+
+  NEXT_PUBLIC_AWS_ACCESS_KEY=*******
+
+  NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY=*******
+
+  NEXT_PUBLIC_BUCKET_NAME=*******
 ```
 
 *As variáveis estão incompletas e serão atualizadas de acordo com o desenvolvimento do sistema*

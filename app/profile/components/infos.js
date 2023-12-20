@@ -4,15 +4,56 @@ import styles from "./style.module.css"
 
 import { useState, useEffect } from "react"
 
+import userServices from "@/services/userServices"
+
+import Message from "@/app/components/message"
+
+
 export default function Infos() {
-  const [usuario, setUsuario] = useState({nome: "", nascimento: "", telefone: "", imagem: "", email: "", login: "", senha: ""});
+  const [user, setUser] = useState({name: "", birth: "", telephone: "", image: "", email: "", password: ""});
+
+  const [profileImage, setProfileImage] = useState();
+
+  const [message, setMessage] = useState({});
 
   useEffect(() => {
-    setUsuario({nome: "Jânio Fernandes", nascimento: "14/09/1998", telefone: "84999163036", imagem: "/images/ui/categoria_temporaria.png", email: "janiojr14@hotmail.com", login: "Jan1o", senha: "janio123"});
-  }, [])
+    userServices.getUser().then((res) => setUser({name: res.name, birth: res.birth, telephone: res.telephone, image: res.image, email: res.email, password: ""}));
 
-  const handleSubmit = () => {
-    return;
+  }, []);
+
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+
+    //build form data
+    const userData = {}
+
+    if(user.name) {
+      userData.name = user.name;
+    }
+    if(user.birth){
+      userData.birth = user.birth;
+    }
+    if(user.telephone){
+      userData.telephone = user.telephone
+    }
+    if(profileImage){
+      userData.image = profileImage;
+    }
+    if(user.password){
+      userData.password = user.password;
+    }
+
+    userServices.updateUser(userData).then((res) => {
+      if(res.errors){
+        setMessage({text: res.errors[0], type: "error"});
+      }
+      else{
+        setUser({name: res.name, birth: res.birth, telephone: res.telephone, image: res.image, email: res.email, password: ""});
+        setMessage({text: "Usuário atualizado com sucesso.", type: "success"});
+      }
+    });
+
+    
   }
 
   return(
@@ -21,38 +62,35 @@ export default function Infos() {
       <div>
         <section>
           <p className={styles.subtitle}>Adicione uma imagem de perfil, queremos te conhecer ...</p>
-          <img id={styles.img_perfil} src={usuario.imagem} alt={usuario.nome} />
+          <img id={styles.img_perfil} src={user.image} alt={user.name} />
         </section>
         <form onSubmit={handleSubmit}>
           <label>
             <span>Nome:</span>
-            <input type="text" placeholder="Nome" onChange={(e) => setUsuario(prevState => ({...prevState, nome: e.target.value}))} value={usuario.nome || ""}/>
+            <input type="text" placeholder="Nome" onChange={(e) => setUser(prevState => ({...prevState, name: e.target.value}))} value={user.name || ""}/>
           </label>
           <label>
             <span>Data de nascimento:</span>
-            <input type="text" placeholder="Data de Nascimento" onChange={(e) => setUsuario(prevState => ({...prevState, nascimento: e.target.value}))} value={usuario.nascimento || ""} />
+            <input type="text" placeholder="Data de Nascimento" onChange={(e) => setUser(prevState => ({...prevState, birth: e.target.value}))} value={user.birth || ""} />
           </label>
           <label>
             <span>Telefone:</span>
-            <input type="tel" placeholder="Telefone" onChange={(e) => setUsuario(prevState => ({...prevState, telefone: e.target.value}))} value={usuario.telefone || ""} />
+            <input type="tel" placeholder="Telefone" onChange={(e) => setUser(prevState => ({...prevState, telephone: e.target.value}))} value={user.telephone || ""} />
           </label>
           <label>
             <span>Email:</span>
-            <input type="email" placeholder="Email" disabled value={usuario.email || ""}/>
+            <input type="email" placeholder="Email" disabled value={user.email || ""}/>
           </label>
           <label>
             <span>Image do Perfil:</span>
-            <input type="file" onChange={(e) => setUsuario(prevState => ({...prevState, imagem: e.target.files[0]}))}/>
-          </label>
-          <label>
-            <span>Deseja mudar seu nome de usuário?</span>
-            <input type="text" placeholder="Digite seu novo usuario" onChange={(e) => setUsuario(prevState => ({...prevState, login: e.target.value}))} value={usuario.login || ""}/>
+            <input type="file" onChange={(e) => {setProfileImage(e.target.files[0]); setUser(prevState => ({...prevState, image: URL.createObjectURL(e.target.files[0])}))}}/>
           </label>
           <label>
             <span>Quer alterar sua senha?</span>
-            <input type="password" placeholder="Digite sua nova senha" onChange={(e) => setPassword(e.target.value)} value={usuario.senha || ""}/>
+            <input type="password" placeholder="Digite sua nova senha" onChange={(e) => setUser(prevState => ({...prevState, password: e.target.value}))} value={user.password || ""}/>
           </label>
           <input type="submit" value="Atualizar" />
+          {message && <Message msg={message.text} type={message.type}/>}
         </form>
       </div>
     </div>

@@ -12,3 +12,4 @@ As versões devem obedecer o padrão **0.0.0** onde o *primeiro dígito* se refe
 | 0.3.1 | Página principal funcional. | Nenhum alerta pertinente. |
 | 0.4.2 | Funcionalidades de login, register e logout implementadas com redux. Problemas com session resovidos quando o redux foi implementado. | Nenhum alerta pertinente. |
 | 0.5.2 | Funcionalidade de search implementada. | Nenhum alerta pertinente. |
+| 0.6.2 | Funcionalidade de envio de imagens para aws implementada. Páginade update de usuário implementado | Alerta de bug: Imagem de usuário não atualiza corretamente no momento do update. |

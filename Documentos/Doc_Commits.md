@@ -50,3 +50,7 @@ Abaixo devem ser listados todos os commits realizados (com exceção dos commits
 | 022 | 0.3.1 | Criação do context de usuário para sessão. |
 | 023 | 0.4.2 | Funcionalidades de login, register e logout implementadas com redux e localStorage. |
 | 024 | 0.5.2 | Funcionalidade de search implementada. |
+| 025 | 0.5.2 | Get profile na página de usuário implementado. |
+| 026 | 0.5.2 | Update de profile funcionando, mas sem upload de imagem. |
+| 027 | 0.6.2 | Função de envio de imagens para aws implementada, update profile de usuário implementado. |
+| 028 | 0.6.2 | Atualização do README com as chaves necessárias no .env | 
