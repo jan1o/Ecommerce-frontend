@@ -54,4 +54,5 @@ Abaixo devem ser listados todos os commits realizados (com exceção dos commits
 | 026 | 0.5.2 | Update de profile funcionando, mas sem upload de imagem. |
 | 027 | 0.6.2 | Função de envio de imagens para aws implementada, update profile de usuário implementado. |
 | 028 | 0.6.2 | Atualização do README com as chaves necessárias no .env . | 
-| 029 | 0.6.3 | fixed: bug na imagem de profile. |
+| 029 | 0.6.3 | Fixed: bug na imagem de profile. |
+| 030 | 0.7.3 | Componentes de favoritos, infos e pedidos da página de profile finalizados. |

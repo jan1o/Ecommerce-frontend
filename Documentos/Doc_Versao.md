@@ -14,3 +14,4 @@ As versões devem obedecer o padrão **0.0.0** onde o *primeiro dígito* se refe
 | 0.5.2 | Funcionalidade de search implementada. | Nenhum alerta pertinente. |
 | 0.6.2 | Funcionalidade de envio de imagens para aws implementada. Páginade update de usuário implementado | Alerta de bug: Imagem de usuário não atualiza corretamente no momento do update. |
 | 0.6.3 | Fixed: Bug na imagem de usuário no profile. | Nenhum alerta pertinente. |
+| 0.7.3 | Finalização da página de profile do usuário. | Nenhum alerta pertinente. |

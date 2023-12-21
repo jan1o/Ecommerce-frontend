@@ -2,40 +2,36 @@
 
 import styles from "./style.module.css"
 
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 
-const favoritos = [
-  {
-    id: 1,
-    nome: "Produto 1",
-    imagem: "/images/ui/categoria_temporaria.png",
-    precoAnterior: 24.99,
-    preco: 19.99
-  },
-  {
-    id: 2,
-    nome: "Produto 2",
-    imagem: "/images/ui/categoria_temporaria.png",
-    precoAnterior: 23.98,
-    preco: 17.49
-  },
-  {
-    id: 3,
-    nome: "Produto 3",
-    imagem: "/images/ui/categoria_temporaria.png",
-    precoAnterior: 36.95,
-    preco: 29.95  
-  },
-  {
-    id: 4,
-    nome: "Produto 4",
-    imagem: "/images/ui/categoria_temporaria.png",
-    precoAnterior: 104.99,
-    preco: 89.99
-  },
-]
+import { BsHeart, BsHeartFill } from "react-icons/bs";
+
+import productServices from "@/services/productServices"
 
 export default function Favoritos() {
+
+  const [favoritos, setFavoritos] = useState([]);
+
+  const [unfavorites, setUnfavorites] = useState([]);
+
+  useEffect(() => {
+    productServices.getUserFavorites().then((res) => setFavoritos(res));
+  }, []);
+
+  const handleProcessfavorite = (action, product) => {
+    productServices.processFavoriteProduct(product);
+    switch(action){
+      case "favorite":
+        setUnfavorites(unfavorites.filter(item => item !== product));
+        break;
+      case "unfavorite":
+        setUnfavorites(prevList => [...prevList, product]);
+        break;
+      default:
+        break;
+    }
+  }
 
   const router = useRouter();
 
@@ -50,17 +46,18 @@ export default function Favoritos() {
         <p id={styles.favoritos_p1}>Produto</p>
         <p id={styles.favoritos_p2}>Preço</p>
       </div>
-      {favoritos.map((produto) => {
-        return <div key={produto.id} id={styles.favoritos_product_container}>
+      {favoritos.map((product) => {
+        return <div key={product._id} id={styles.favoritos_product_container}>
           <div id={styles.favoritos_product}>
-            <img src="/images/ui/categoria_temporaria.png" alt={produto.nome}/>
-            <h3>{produto.nome}</h3>
+            <img src={product.images[0]} alt={product.name}/>
+            <h3>{product.name}</h3>
           </div>
           <div id={styles.favoritos_valor}>
-            <h5>R$ {produto.precoAnterior}</h5>
-            <h2>R$ {produto.preco}</h2>
+            <h5>R$ {product.previousPrice}</h5>
+            <h2>R$ {product.price}</h2>
           </div>
-          <button onClick={() => {handleProduct(produto.id)}}>Ver</button>
+          {!unfavorites.find((element) => element === product._id) ? <BsHeartFill onClick={() => {handleProcessfavorite("unfavorite", product._id)}} /> : <BsHeart onClick={() => {handleProcessfavorite("favorite", product._id)}} />}
+          <button onClick={() => {handleProduct(product._id)}}>Ver</button>
         </div>
       })}
     </div>

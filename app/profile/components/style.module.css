@@ -75,7 +75,7 @@
 }
 
 #favoritos_valor {
-  width: 20%;
+  width: 15%;
 }
 
 #favoritos_valor h5 {
@@ -85,6 +85,12 @@
 
 #favoritos_valor h2 {
   margin-top: 0;
+}
+
+#favoritos_product_container svg {
+  font-size: 25px;
+  padding-right: 20px;
+  cursor: pointer;
 }
 
 #favoritos_product_container button {
