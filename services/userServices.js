@@ -20,7 +20,7 @@ const updateUser = async(data) => {
     awsService.sendFile(image, "users", randomName);
     
     const imageURL = "https://mycommercetutorial.s3.sa-east-1.amazonaws.com/users/" + randomName
-    console.log("URL da imagem: " + imageURL);
+
     data.image = imageURL;
   }
 
