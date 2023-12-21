@@ -48,6 +48,7 @@ export default function Infos() {
         setMessage({text: res.errors[0], type: "error"});
       }
       else{
+        console.log("Imagem: " + res.image);
         setUser({name: res.name, birth: res.birth, telephone: res.telephone, image: res.image, email: res.email, password: ""});
         setMessage({text: "Usuário atualizado com sucesso.", type: "success"});
       }
@@ -62,7 +63,7 @@ export default function Infos() {
       <div>
         <section>
           <p className={styles.subtitle}>Adicione uma imagem de perfil, queremos te conhecer ...</p>
-          <img id={styles.img_perfil} src={user.image} alt={user.name} />
+          {(user.image || profileImage) && <img id={styles.img_perfil} src={profileImage ? URL.createObjectURL(profileImage) : user.image} alt={user.name} />}
         </section>
         <form onSubmit={handleSubmit}>
           <label>
