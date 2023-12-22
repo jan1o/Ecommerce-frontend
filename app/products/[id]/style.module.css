@@ -65,8 +65,10 @@
   align-items: center;
 }
 
-#infos_container div button {
-  background-color: #0094F6;
+#infos_container svg{
+  font-size: 25px;
+  padding-right: 20px;
+  cursor: pointer;
 }
 
 #infos_container div img {
@@ -105,8 +107,6 @@
 
 #addToCart:hover {
   background-color: rgb(2, 131, 2);
-  width: 105%;
-  height: 55px;
 }
 
 #garantias_container {

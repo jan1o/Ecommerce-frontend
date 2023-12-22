@@ -7,6 +7,10 @@ import Loading from '@/app/loading';
 
 import { getUser } from '@/utils/userUtils';
 
+import productServices from '@/services/productServices';
+
+import { BsHeart, BsHeartFill } from "react-icons/bs";
+
 export default function Product({ params }){
 
   const [produto, setProduto] = useState();
@@ -24,23 +28,35 @@ export default function Product({ params }){
 
   const [banner, setBanner] = useState();
   const [desconto, setDesconto] = useState();
+  const [likes, setLikes] = useState();
+  const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
     if(!produto) return;
 
     setBanner(produto.images[0]);
     setDesconto(Math.trunc((1 - (produto.price / produto.previousPrice)) * 100));
+    setLikes(produto.likes.length);
+    if(produto.likes.find((element) => element === getUser()._id)){
+      setIsLiked(true);
+    }
   }, [produto])
 
-  const handleLike = async () => {
-    //produto.likes += 1;
-    const user = getUser();
-    const res = await fetch(`http://localhost:5000/api/products/like/${params.id}`, {
-      method: "PUT",
-      headers: {
-        'Authorization': `Bearer ${user.token}`,
-      },
-    }).then(res => console.log(res.json()));
+  const handleLike = async (action) => {
+
+    productServices.processFavoriteProduct(params.id);
+    switch(action){
+      case "favorite":
+        setIsLiked(true);
+        setLikes(likes + 1);
+        break;
+      case "unfavorite":
+        setIsLiked(false);
+        setLikes(likes - 1);
+        break;
+      default:
+        break;
+    }
   }
 
   const handleAddToCart = () => {
@@ -71,8 +87,8 @@ export default function Product({ params }){
           {/*infos*/}
           <div id={styles.infos_container}>
             <div>
-              <button onClick={handleLike}><img src='/like' alt="like"/></button>
-              <p>{produto.likes.length}</p>
+              {isLiked ? <BsHeartFill onClick={() => {handleLike("unfavorite")}} /> : <BsHeart onClick={() => {handleLike("favorite")}} />}
+              <p>{likes}</p>
             </div>
             <h5>R$ {produto.previousPrice}</h5>
             <h1>R$ {produto.price}</h1>
