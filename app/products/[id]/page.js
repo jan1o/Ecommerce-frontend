@@ -5,9 +5,12 @@ import styles from './style.module.css'
 import { useState, useEffect } from 'react';
 import Loading from '@/app/loading';
 
+import Message from '@/app/components/message';
+
 import { getUser } from '@/utils/userUtils';
 
 import productServices from '@/services/productServices';
+import cartServices from '@/services/cartServices';
 
 import { BsHeart, BsHeartFill } from "react-icons/bs";
 
@@ -59,8 +62,18 @@ export default function Product({ params }){
     }
   }
 
+  const [message, setMessage] = useState({});
   const handleAddToCart = () => {
-    console.log("Adicionando ao carrinho.");
+
+    cartServices.addProductToCart(params.id).then((res) => {
+      if(res.errors){
+        setMessage({text: res.errors[0], type: "error"});
+      }
+      else {
+        setMessage({text: "Produto adicionado ao carrinho.", type: "success"});
+      }
+    });
+
   }
 
   if(!produto){
@@ -95,9 +108,10 @@ export default function Product({ params }){
             <h6>{'('}{desconto}% de desconto{')'}</h6>
             <h3>R$ {produto.shipping} de frete para todo o Brasil</h3>
             <h1>Total de R$ {produto.total}</h1>
-            <button id={styles.addToCart} onClick={handleAddToCart}>Adicionar ao carrinho</button>
+            <button id={styles.addToCart} onClick={() => handleAddToCart()}>Adicionar ao carrinho</button>
           </div>
         </div>
+        {message && <Message msg={message.text} type={message.type} />}
         {/*garantias*/}
         <div id={styles.garantias_container}>
           <img src='/images/ui/banner_background.png' alt="garantias"/>
