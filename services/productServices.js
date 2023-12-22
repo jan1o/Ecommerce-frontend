@@ -2,6 +2,14 @@ import { api, requestConfig } from "@/utils/config"
 
 import { getUser as getUserToken } from "@/utils/userUtils";
 
+const getProductById = async(id) => {
+  const config = requestConfig("GET", null);
+
+  const res = await fetch(api + "/products/product/" + id, config).then((res) => res.json());
+
+  return res;
+}
+
 const getUserFavorites = async() => {
   const token = getUserToken().token;
   const config = requestConfig("GET", null, token);
@@ -21,6 +29,7 @@ const processFavoriteProduct = async(product) => {
 }
 
 const productService = {
+  getProductById,
   getUserFavorites,
   processFavoriteProduct,
 };

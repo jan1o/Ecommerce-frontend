@@ -5,7 +5,14 @@ import styles from './style.module.css'
 import { useState, useEffect } from 'react';
 import Loading from '@/app/loading';
 
+import Message from '@/app/components/message';
+
 import { getUser } from '@/utils/userUtils';
+
+import productServices from '@/services/productServices';
+import cartServices from '@/services/cartServices';
+
+import { BsHeart, BsHeartFill } from "react-icons/bs";
 
 export default function Product({ params }){
 
@@ -24,27 +31,49 @@ export default function Product({ params }){
 
   const [banner, setBanner] = useState();
   const [desconto, setDesconto] = useState();
+  const [likes, setLikes] = useState();
+  const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
     if(!produto) return;
 
     setBanner(produto.images[0]);
     setDesconto(Math.trunc((1 - (produto.price / produto.previousPrice)) * 100));
+    setLikes(produto.likes.length);
+    if(produto.likes.find((element) => element === getUser()._id)){
+      setIsLiked(true);
+    }
   }, [produto])
 
-  const handleLike = async () => {
-    //produto.likes += 1;
-    const user = getUser();
-    const res = await fetch(`http://localhost:5000/api/products/like/${params.id}`, {
-      method: "PUT",
-      headers: {
-        'Authorization': `Bearer ${user.token}`,
-      },
-    }).then(res => console.log(res.json()));
+  const handleLike = async (action) => {
+
+    productServices.processFavoriteProduct(params.id);
+    switch(action){
+      case "favorite":
+        setIsLiked(true);
+        setLikes(likes + 1);
+        break;
+      case "unfavorite":
+        setIsLiked(false);
+        setLikes(likes - 1);
+        break;
+      default:
+        break;
+    }
   }
 
+  const [message, setMessage] = useState({});
   const handleAddToCart = () => {
-    console.log("Adicionando ao carrinho.");
+
+    cartServices.addProductToCart(params.id).then((res) => {
+      if(res.errors){
+        setMessage({text: res.errors[0], type: "error"});
+      }
+      else {
+        setMessage({text: "Produto adicionado ao carrinho.", type: "success"});
+      }
+    });
+
   }
 
   if(!produto){
@@ -71,17 +100,18 @@ export default function Product({ params }){
           {/*infos*/}
           <div id={styles.infos_container}>
             <div>
-              <button onClick={handleLike}><img src='/like' alt="like"/></button>
-              <p>{produto.likes.length}</p>
+              {isLiked ? <BsHeartFill onClick={() => {handleLike("unfavorite")}} /> : <BsHeart onClick={() => {handleLike("favorite")}} />}
+              <p>{likes}</p>
             </div>
             <h5>R$ {produto.previousPrice}</h5>
             <h1>R$ {produto.price}</h1>
             <h6>{'('}{desconto}% de desconto{')'}</h6>
             <h3>R$ {produto.shipping} de frete para todo o Brasil</h3>
             <h1>Total de R$ {produto.total}</h1>
-            <button id={styles.addToCart} onClick={handleAddToCart}>Adicionar ao carrinho</button>
+            <button id={styles.addToCart} onClick={() => handleAddToCart()}>Adicionar ao carrinho</button>
           </div>
         </div>
+        {message && <Message msg={message.text} type={message.type} />}
         {/*garantias*/}
         <div id={styles.garantias_container}>
           <img src='/images/ui/banner_background.png' alt="garantias"/>

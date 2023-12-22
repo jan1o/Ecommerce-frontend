@@ -81,7 +81,7 @@ export default function Home() {
               <ProductCard 
                 name={produto.name} 
                 image={produto.image} 
-                likes={produto.likes} 
+                likes={produto.likes.length} 
                 previousPrice={produto.previousPrice} 
                 price={produto.price}
               />
