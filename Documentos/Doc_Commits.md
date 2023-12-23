@@ -58,3 +58,4 @@ Abaixo devem ser listados todos os commits realizados (com exceção dos commits
 | 030 | 0.7.3 | Componentes de favoritos, infos e pedidos da página de profile finalizados. |
 | 031 | 0.7.3 | Página de produto atualizada e se adequando aos likes de usuário. |
 | 032 | 0.8.3 | Página de produto finalizada. |
+| 033 | 0.9.3 | Página de carrinho finalizada. |
