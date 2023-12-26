@@ -60,3 +60,4 @@ Abaixo devem ser listados todos os commits realizados (com exceção dos commits
 | 032 | 0.8.3 | Página de produto finalizada. |
 | 033 | 0.9.3 | Página de carrinho finalizada. |
 | 034 | 0.9.3 | Fetchs nas páginas principal e de pesquisa movidos para services. |
+| 035 | 0.10.3 | Componente de categorias no dashboard de admin finalizado. |
