@@ -10,6 +10,38 @@ const getProductById = async(id) => {
   return res;
 }
 
+const getNewest = async() => {
+  const config = requestConfig("GET", null);
+
+  const res = await fetch(api + "/products/newest", config).then((res) => res.json());
+
+  return res;
+}
+
+const getBest = async() => {
+  const config = requestConfig("GET", null);
+
+  const res = await fetch(api + "/products/best", config).then((res) => res.json());
+
+  return res;
+}
+
+const searchProductByName = async(name) => {
+  const config = requestConfig("GET", null);
+
+  const res = await fetch(api + "/products/search/product/" + name, config).then((res) => res.json());
+
+  return res;
+}
+
+const searchProductByCategory = async(category) => {
+  const config = requestConfig("GET", null);
+
+  const res = await fetch(api + "/products/search/category/" + category, config).then((res) => res.json());
+
+  return res;
+}
+
 const getUserFavorites = async() => {
   const token = getUserToken().token;
   const config = requestConfig("GET", null, token);
@@ -30,6 +62,10 @@ const processFavoriteProduct = async(product) => {
 
 const productService = {
   getProductById,
+  getNewest,
+  getBest,
+  searchProductByName,
+  searchProductByCategory,
   getUserFavorites,
   processFavoriteProduct,
 };

@@ -17,3 +17,4 @@ As versões devem obedecer o padrão **0.0.0** onde o *primeiro dígito* se refe
 | 0.7.3 | Finalização da página de profile do usuário. | Nenhum alerta pertinente. |
 | 0.8.3 | Finalização da página de produtos. | Nenhum alerta pertinente. |
 | 0.9.3 | Página de carrinho finalizada sem checkout. | Alerta: Ainda não foi feita a parte do checkout então o carrinho deve sofrer atualizações futuramente. |
+| 0.10.3 | Componente de categorias no dashboard do admin finalizado. | Nenhum alerta pertinente. |

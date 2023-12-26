@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation"
 
 import { useState, useEffect } from "react"
 
+import productServices from "@/services/productServices"
+
 import ProductCard from "../components/products/productCard"
 
 export default function Search() {
@@ -23,17 +25,14 @@ export default function Search() {
   const getProducts = async() => {
     let res;
     if(produto){
-      res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/search/product/${produto}`).then((res) => res.json());
+      productServices.searchProductByName(produto).then((res) => setProdutos(res));
     }
     else if(categoria){
-      res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/search/category/${categoria}`).then((res) => res.json());
+      res = productServices.searchProductByCategory(categoria).then((res) => setProdutos(res));
     }
     else{
       return;
     }
-
-    console.log(res);
-    setProdutos(res);
   }
 
   const router = useRouter();

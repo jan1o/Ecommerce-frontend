@@ -4,94 +4,74 @@ import styles from "./categorias.module.css"
 
 import { useState, useEffect } from "react";
 
+import categoryServices from "@/services/categoryServices";
+
 import CategoriaPanel from "./categoriaPanel";
 
-const categorias = [
-  {
-    id: 1,
-    nome: "Categoria 1",
-    imagem: "/images/ui/categoria_temporaria.png"
-  },
-  {
-    id: 2,
-    nome: "Categoria 2",
-    imagem: "/images/ui/categoria_temporaria.png"
-  },
-  {
-    id: 3,
-    nome: "Categoria 3",
-    imagem: "/images/ui/categoria_temporaria.png"
-  },
-  {
-    id: 4,
-    nome: "Categoria 4",
-    imagem: "/images/ui/categoria_temporaria.png"
-  },
-  {
-    id: 5,
-    nome: "Categoria 5",
-    imagem: "/images/ui/categoria_temporaria.png"
-  },
-  {
-    id: 6,
-    nome: "Categoria 6",
-    imagem: "/images/ui/categoria_temporaria.png"
-  },
-  {
-    id: 7,
-    nome: "Categoria 7",
-    imagem: "/images/ui/categoria_temporaria.png"
-  },
-  {
-    id: 8,
-    nome: "Categoria 8",
-    imagem: "/images/ui/categoria_temporaria.png"
-  },
-];
+import Message from "@/app/components/message";
 
 export default function Categorias(){
 
-  const [panelActive, setPanelActive] = useState(false);
+  const [message, setMessage] = useState({});
 
-  const [categoria, setCategoria] = useState();
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    if(categoria){
+    getCategories();
+  }, []);
+
+  const [panelActive, setPanelActive] = useState(false);
+
+  const [category, setCategory] = useState();
+
+  useEffect(() => {
+    if(category){
       panelActivity();
     }
-  }, [categoria]);
+  }, [category]);
+
+  const getCategories = () => {
+    categoryServices.getAll().then((res) => setCategories(res));
+  }
 
   const handleAddCategory = () => {
     panelActivity();
   }
 
-  const openCategory = (categoria) => {
-    setCategoria(categoria);
+  const openCategory = (category) => {
+    setCategory(category);
   }
 
   const panelActivity = () => {
-    panelActive ? (setPanelActive(false), setCategoria()) : setPanelActive(true);
+    panelActive ? (setPanelActive(false), getCategories(), setCategory(), setMessage({text: "Categorias atualizadas com sucesso.", type: "success"})) : setPanelActive(true);
   }
 
-  const deleteCategory = (categoria) => {
-    console.log("Excluindo categoria: " + categoria);
+  const deleteCategory = (id) => {
+    categoryServices.deleteCategory(id).then((res) => {
+      if(res.errors){
+        setMessage({text: errors, type: "error"});
+      }
+      getCategories(); 
+      setMessage({text: "Categoria deletada com sucesso.", type: "success"});
+    });
   }
 
   return(
     <div id={styles.categorias_container}>
       <h2>Categorias</h2>
       <button onClick={handleAddCategory}>Nova Categoria</button>
-      {categorias.map((categoria) => {
-        return <div key={categoria.id} className={styles.categoria_container}>
-          <img src={categoria.imagem} />
+      {message && <Message msg={message.text} type={message.type}/>}
+      {categories.map((category) => {
+        return <div key={category._id} className={styles.categoria_container}>
+          <img src={category.image} />
           <div>
-            <p>{categoria.nome}</p>
-            <button onClick={() => openCategory(categoria.id)}>Editar</button>
-            <button className={styles.delete} onClick={() => deleteCategory(categoria.id)}>Excluir</button>
+            <p>{category.name}</p>
+            <button onClick={() => openCategory(category)}>Editar</button>
+            <button className={styles.delete} onClick={() => deleteCategory(category._id)}>Excluir</button>
           </div>
         </div>
       })}
-      {panelActive && <CategoriaPanel id={categoria} panelActivity={panelActivity}/>}
+      {panelActive && <CategoriaPanel categ={category} panelActivity={panelActivity}/>}
     </div>
   )
 }
