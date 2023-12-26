@@ -7,6 +7,9 @@ import { useRouter } from 'next/navigation'
 
 import { useState, useEffect } from 'react'
 
+import productServices from '@/services/productServices'
+import categoryServices from '@/services/categoryServices'
+
 import ProductCard from './components/products/productCard'
 import CategoryCard from './components/products/categoryCard'
 
@@ -22,14 +25,14 @@ export default function Home() {
 
   const getDataFromServer = async () => {
     const [res1, res2, res3] = await Promise.all([
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories/`),
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/newest`),
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/best`)
+      categoryServices.getAll(),
+      productServices.getNewest(),
+      productServices.getBest()
     ]);
 
-    setCategorias(await res1.json());
-    setNewest(await res2.json());
-    setBest(await res3.json());
+    setCategorias(res1);
+    setNewest(res2);
+    setBest(res3);
   }
 
   const router = useRouter();
