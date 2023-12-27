@@ -4,42 +4,22 @@ import styles from "./produtos.module.css"
 
 import { useRouter } from "next/navigation";
 
-const produtos = [
-  {
-    id: "1",
-    imagem: "/images/ui/categoria_temporaria.png",
-    nome: "Produto 1",
-    likes: 20,
-    preco: 25.99,
-    precoAnterior: 29.99
-  },
-  {
-    id: 2,
-    imagem: "/images/ui/categoria_temporaria.png",
-    nome: "Produto 2",
-    likes: 12,
-    preco: 99.99,
-    precoAnterior: 115.00
-  },
-  {
-    id: 3,
-    imagem: "/images/ui/categoria_temporaria.png",
-    nome: "Produto 3",
-    likes: 50,
-    preco: 129.95,
-    precoAnterior: 139.95
-  },
-  {
-    id: 4,
-    imagem: "/images/ui/categoria_temporaria.png",
-    nome: "Produto 4",
-    likes: 100,
-    preco: 12.99,
-    precoAnterior: 14.99
-  },
-];
+import { useEffect, useState } from "react";
+
+import productServices from "@/services/productServices";
+
+import Message from "@/app/components/message";
+import DeletePanel from "@/app/components/deletePanel";
 
 export default function Produtos(){
+
+  const [message, setMessage] = useState({});
+
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    productServices.getAllProducts().then((res) => setProducts(res));
+  }, []);
 
   const router = useRouter();
 
@@ -51,33 +31,67 @@ export default function Produtos(){
     router.push(`/admin/dashboard/${produto}`);
   }
 
-  const handleDelete = (produto) => {
-    console.log("Deletando produto " + produto);
+  //delete product
+  const [productToDelete, setProductToDelete] = useState();
+  const [deletePanel, setDeletePanel] = useState(false);
+
+  useEffect(() => {
+    if(productToDelete === undefined){
+      return;
+    }
+
+    handleDeletePanel();
+  }, [productToDelete]);
+
+  const handleDeletePanel = () => {
+    deletePanel ? (setDeletePanel(false), setProductToDelete()) : setDeletePanel(true)
+  }
+
+  const handleDelete = () => {
+    productServices.deleteProduct(productToDelete).then((res) => {
+      if(res.errors){
+        setMessage({text: res.errors, type: "error"});
+      }
+      else{
+        setMessage({text: res.message, type: "success"});
+
+        let list = products;
+        
+        const index = list.findIndex((e) => e._id === productToDelete);
+        list.splice(index, 1);
+
+        setProducts(list);
+      }
+    });
+
+    handleDeletePanel();
   }
 
   return(
     <div id={styles.produtos_container}>
       <h2>Produtos</h2>
       <button onClick={handleAdd}>Add Novo</button>
-      {produtos.map((produto) => {
-        return <div key={produto.id} className={styles.produto_container}>
+      {message && <Message msg={message.text} type={message.type} />}
+      {products.map((product) => {
+        return <div key={product._id} className={styles.produto_container}>
           <div>
-            <p>{produto.id}</p>
+            <p>{product._id}</p>
           </div>
           <div>
-            <img src={produto.imagem}/>
+            <img src={product.images[0]}/>
           </div>
           <div>
-            <p>{produto.nome}</p>
-            <h4>R$ {produto.precoAnterior}</h4>
-            <h3>R$ {produto.preco}</h3>
+            <p>{product.name}</p>
+            <h4>R$ {product.previousPrice}</h4>
+            <h3>R$ {product.price}</h3>
           </div>
           <div>
-            <button onClick={() => handleEdit(produto.id)}>Editar</button>
-            <button onClick={() => handleDelete(produto.id)}>Deletar</button>
+            <button onClick={() => handleEdit(product._id)}>Editar</button>
+            <button onClick={() => setProductToDelete(product._id)}>Deletar</button>
           </div>
         </div>
       })}
+      {deletePanel && <DeletePanel text={"Deseja deletar o produto " + productToDelete} functionYes={handleDelete} functionNo={handleDeletePanel} />}
     </div>
   )
 }
