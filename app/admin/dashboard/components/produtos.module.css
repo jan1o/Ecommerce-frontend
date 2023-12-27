@@ -2,6 +2,10 @@
   width: 100%;
 }
 
+#produtos_container button {
+  margin-bottom: 10px;
+}
+
 .produto_container {
   display: flex;
   align-items: center;

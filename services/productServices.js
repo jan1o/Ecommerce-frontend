@@ -26,6 +26,14 @@ const getBest = async() => {
   return res;
 }
 
+const getAllProducts = async() => {
+  const config = requestConfig("GET", null);
+
+  const res = await fetch(api + "/products/", config).then((res) => res.json());
+
+  return res;
+}
+
 const searchProductByName = async(name) => {
   const config = requestConfig("GET", null);
 
@@ -60,14 +68,25 @@ const processFavoriteProduct = async(product) => {
   return res;
 }
 
+const deleteProduct = async(product) => {
+  const token = getUserToken().token;
+  const config = requestConfig("DELETE", null, token);
+
+  const res = await fetch(api + "/products/" + product, config).then((res) => res.json());
+
+  return res;
+}
+
 const productService = {
   getProductById,
   getNewest,
   getBest,
+  getAllProducts,
   searchProductByName,
   searchProductByCategory,
   getUserFavorites,
   processFavoriteProduct,
+  deleteProduct,
 };
 
 export default productService;

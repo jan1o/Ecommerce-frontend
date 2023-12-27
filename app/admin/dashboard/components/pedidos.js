@@ -2,120 +2,93 @@
 
 import styles from "./pedidos.module.css"
 
-const pedidos = [
-  {
-    id: 1,
-    nome: "Jânio",
-    sobrenome: "Fernandes de Medeiros Júnior",
-    estado: "RN",
-    cidade: "Caicó", 
-    bairro: "Zona Rural",
-    endereço: "Sítio Umari", 
-    complemento: "", 
-    produtos: [
-      {
-        id: 1,
-        nome: "Produto 1",
-        preco: 24.99,
-        quantidade: 1,
-        imagem: "/images/ui/categoria_temporaria.png"
-      },
-      {
-        id: 2,
-        nome: "Produto 2",
-        preco: 19.99,
-        quantidade: 2,
-        imagem: "/images/ui/categoria_temporaria.png"
-      }
-    ], 
-    total: 64.97, 
-    status: "Finalizado"
-  },
-  {
-    id: 2,
-    nome: "Jânio",
-    sobrenome: "Fernandes de Medeiros Júnior",
-    estado: "RN",
-    cidade: "Caicó", 
-    bairro: "Zona Rural",
-    endereço: "Sítio Umari", 
-    complemento: "", 
-    produtos: [
-      {
-        id: 1,
-        nome: "Produto 1",
-        preco: 24.99,
-        quantidade: 1,
-        imagem: "/images/ui/categoria_temporaria.png"
-      },
-      {
-        id: 2,
-        nome: "Produto 3",
-        preco: 49.98,
-        quantidade: 1,
-        imagem: "/images/ui/categoria_temporaria.png"
-      }
-    ], 
-    total: 74.97, 
-    status: "Enviado para entrega"
-  },
+import { useEffect, useState } from "react"
 
-]
+import orderServices from "@/services/orderServices"
+
+import Message from "@/app/components/message"
 
 export default function Pedidos(){
 
-  const handleStatus = (status) => {
-    console.log(status);
+  const [message, setMessage] = useState({});
 
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    orderServices.getAllOrders().then((res) => setOrders(res));
+  }, []);
+
+  const handleStatus = (order, status) => {
+    const data = {
+      status: status
+    }
+
+    orderServices.updateOrderStatus(order, data).then((res) => {
+      if(res.errors){
+        setMessage({text: res.errors, type: "error"});
+      }
+      else{
+        setMessage({text: "Pedido atualizado com sucesso.", type: "success"});
+
+        let list = orders;
+        list.map((item) => item._id === order ? item = res : item);
+        setOrders(list);
+      }
+    });
   }
 
   return(
     <div id={styles.pedidos_container}>
       <h2>Pedidos</h2>
-      <div id={styles.pedidos_cabecalho}>
-        <p id={styles.pedidos_p1}>Cliente</p>
-        <p id={styles.pedidos_p2}>Produtos</p>
-        <p id={styles.pedidos_p3}>Status</p>
-      </div>
-      {pedidos.map((pedido) => {
-        return <div key={pedido.id} className={styles.pedido_container}>
-          <div className={styles.pedido_cliente}>
-            <p>Nome: {pedido.nome}</p>
-            <p>Sobrenome: {pedido.sobrenome}</p>
-            <p>Estado: {pedido.estado}</p>
-            <p>Cidade: {pedido.cidade}</p>
-            <p>Bairro: {pedido.bairro}</p>
-            <p>Endereço: {pedido.endereço}</p>
-            <p>Complemento: {pedido.complemento}</p>
-          </div>
-          <div className={styles.pedido_produtos}>
-            {pedido.produtos.map((produto) => {
-              return <div key={produto.id}>
-                <img src={produto.imagem} />
-                <section>
-                  <p>{produto.nome}</p>
-                  <p>R$ {produto.preco}</p>
-                  <p>Quantidade: {produto.quantidade}</p>
-                </section>
-              </div>
-            })}
-            <h2>Total: R$ {pedido.total}</h2>
-          </div>
-          <div id={styles.pedido_status}>
-            <h3>{pedido.status}</h3>
-            <form>
-              <select name="status" onChange={(e) => handleStatus(e.target.value)}>
-                <option value="">Selecione o status do pedido</option>
-                <option value="processando">Em processamento</option>
-                <option value="entrega">Enviado para entrega</option>
-                <option value="caminho">A caminho</option>
-                <option value="finalizado">Finalizado</option>
-                <option value="cancelado">Cancelado</option>
-              </select>
-            </form>
-          </div>
+      {!orders.length ? <h3>Nenhum pedido encontrado.</h3> :
+      <>
+        {message && <Message msg={message.text} type={message.type} />}
+        <div id={styles.pedidos_cabecalho}>
+          <p id={styles.pedidos_p1}>Cliente</p>
+          <p id={styles.pedidos_p2}>Produtos</p>
+          <p id={styles.pedidos_p3}>Status</p>
         </div>
-      })}
+        {orders.map((order) => {
+          return <div key={order._id} className={styles.pedido_container}>
+            <div className={styles.pedido_cliente}>
+              <p>Nome: {order.data.name}</p>
+              <p>Sobrenome: {order.data.secondName}</p>
+              <p>Estado: {order.data.state}</p>
+              <p>Cidade: {order.data.city}</p>
+              <p>Bairro: {order.data.neighborhood}</p>
+              <p>Endereço: {order.data.address}</p>
+              <p>Complemento: {order.data.complement}</p>
+            </div>
+            <div className={styles.pedido_produtos}>
+              {order.products.map((product) => {
+                return <div key={product.product}>
+                  <img src={product.image} />
+                  <section>
+                    <p>{producto.name}</p>
+                    <p>R$ {product.price}</p>
+                    <p>Quantidade: {product.amount}</p>
+                  </section>
+                </div>
+              })}
+              <h2>Total: R$ {order.total}</h2>
+            </div>
+            <div id={styles.pedido_status}>
+              <h3>{order.status}</h3>
+              <form>
+                <select name="status" onChange={(e) => handleStatus(order._id, e.target.value)}>
+                  <option value="">Selecione o status do pedido</option>
+                  <option value="processando">Em processamento</option>
+                  <option value="entrega">Enviado para entrega</option>
+                  <option value="caminho">A caminho</option>
+                  <option value="finalizado">Finalizado</option>
+                  <option value="cancelado">Cancelado</option>
+                </select>
+              </form>
+            </div>
+          </div>
+        })}
+      </>
+      }
     </div>
   )
 }
