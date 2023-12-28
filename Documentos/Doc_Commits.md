@@ -62,3 +62,4 @@ Abaixo devem ser listados todos os commits realizados (com exceção dos commits
 | 034 | 0.9.3 | Fetchs nas páginas principal e de pesquisa movidos para services. |
 | 035 | 0.10.3 | Componente de categorias no dashboard de admin finalizado. |
 | 036 | 0.11.3 | Componente de pedido do dashboard finalizado. |
+| 037 | 0.11.3 | Página de produto no dashboard do admin feita, mas não totalmente estilizada nem testada. |

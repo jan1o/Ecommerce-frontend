@@ -77,6 +77,50 @@ const deleteProduct = async(product) => {
   return res;
 }
 
+const addNewProduct = async(product, addedImages) => {
+  const token = getUserToken().token;
+  let tempImageList = [];
+
+  if(addedImages){
+    addedImages.map((image) => {
+      const randomName = Date.now() + image.name;
+      awsService.sendFile(image, "products", randomName);
+      const imageURL = "https://mycommercetutorial.s3.sa-east-1.amazonaws.com/categories/" + randomName;
+      tempImageList.push(imageURL);
+    });
+
+    product.images = tempImageList;
+  }
+
+  const config = requestConfig("POST", product, token);
+
+  const res = await fetch(api + "/products/", config).then((res) => res.json());
+
+  return res;
+}
+
+const updateProduct = async(id, product, DBImages, addedImages) => {
+  const token = getUserToken().token;
+  let tempImageList = DBImages;
+
+  if(addedImages){
+    addedImages.map((image) => {
+      const randomName = Date.now() + image.name;
+      awsService.sendFile(image, "products", randomName);
+      const imageURL = "https://mycommercetutorial.s3.sa-east-1.amazonaws.com/categories/" + randomName;
+      tempImageList.push(imageURL);
+    });
+  }
+
+  product.images = tempImageList;
+
+  const config = requestConfig("PUT", product, token);
+
+  const res = await fetch(api + "/products/update/" + id, config).then((res) => res.json());
+
+  return res;
+}
+
 const productService = {
   getProductById,
   getNewest,
@@ -87,6 +131,8 @@ const productService = {
   getUserFavorites,
   processFavoriteProduct,
   deleteProduct,
+  addNewProduct,
+  updateProduct,
 };
 
 export default productService;
