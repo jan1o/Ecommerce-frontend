@@ -2,6 +2,8 @@ import { api, requestConfig } from "@/utils/config"
 
 import { getUser as getUserToken } from "@/utils/userUtils";
 
+import awsService from "./awsServices";
+
 const getProductById = async(id) => {
   const config = requestConfig("GET", null);
 
@@ -83,9 +85,9 @@ const addNewProduct = async(product, addedImages) => {
 
   if(addedImages){
     addedImages.map((image) => {
-      const randomName = Date.now() + image.name;
-      awsService.sendFile(image, "products", randomName);
-      const imageURL = "https://mycommercetutorial.s3.sa-east-1.amazonaws.com/categories/" + randomName;
+      const randomName = Date.now() + image.data.name;
+      awsService.sendFile(image.data, "products", randomName);
+      const imageURL = "https://mycommercetutorial.s3.sa-east-1.amazonaws.com/products/" + randomName;
       tempImageList.push(imageURL);
     });
 
@@ -105,9 +107,9 @@ const updateProduct = async(id, product, DBImages, addedImages) => {
 
   if(addedImages){
     addedImages.map((image) => {
-      const randomName = Date.now() + image.name;
-      awsService.sendFile(image, "products", randomName);
-      const imageURL = "https://mycommercetutorial.s3.sa-east-1.amazonaws.com/categories/" + randomName;
+      const randomName = Date.now() + image.data.name;
+      awsService.sendFile(image.data, "products", randomName);
+      const imageURL = "https://mycommercetutorial.s3.sa-east-1.amazonaws.com/products/" + randomName;
       tempImageList.push(imageURL);
     });
   }

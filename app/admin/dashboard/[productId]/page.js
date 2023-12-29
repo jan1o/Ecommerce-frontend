@@ -28,7 +28,8 @@ export default function Product({ params }){
 
   //controle de imagens
   const [DBImages, setDBImages] = useState([]); //lista de imagens recuperadas do bd (formato de texto)
-  const [addedImages, setAddedImages] = useState([]); //lista de imagens adicionadas pelo usuário
+  const [addedImages, setAddedImages] = useState([]); //lista de imagens adicionadas pelo usuário (url)
+  const [addedImagesData, setAddedImagesData] = useState([]); //lista de objetos de imagens com data (imagem em si) e url
 
   const tempImage = useRef();
 
@@ -39,9 +40,8 @@ export default function Product({ params }){
 
   useEffect(() => {
     //get do produto no bd caso seja update de produto
-    if(params.productId){
+    if(params.productId && params.productId !== "AddNew"){
       productServices.getProductById(params.productId).then((res) => {
-        console.log(res);
         setName(res.name);
         setDescription(res.description);
         setPreviousPrice(res.previousPrice);
@@ -59,63 +59,77 @@ export default function Product({ params }){
   }, []);
 
   useEffect(() => {
-    if(!productCategories.length){
+    if(productCategories === undefined || categories === undefined || selectedCategories === undefined){
+      return;
+    }
+
+    if(productCategories.length === 0 || categories.length === 0 || selectedCategories.length !== 0){
+      return;
+    }
+    else{
       productCategories.map((e) => {
         const index = categories.findIndex((element) => element._id === e);
         let list = selectedCategories;
+
         list.push(categories[index]);
         setSelectedCategories(list);
-      })
+      });
+
+      
     }
-  }, [categories]);
+  }, [categories, productCategories]);
 
   const handleAddSpec = (e) => {
     e.preventDefault();
 
-    setSpecifications(prevState => ([...prevState, {spec: tempSpec, desc: tempSpecDesc}]));
+    //se o array estiver vazio
+    if(specifications === undefined || specifications.length === 0) {
+      setSpecifications([{spec: tempSpec, desc: tempSpecDesc}]);
+    }
+    else{
+      setSpecifications(prevState => ([...prevState, {spec: tempSpec, desc: tempSpecDesc}]));
+    }
 
     setTempSpec("");
     setTempSpecDesc("");
   }
 
   const handleRemoveSpec = (e) => {
-    setEspec(specifications.filter(item => item.spec !== e.spec));
+    setSpecifications(specifications.filter(item => item.spec !== e.spec));
   }
 
   const handleAddImage = (e) => {
     e.preventDefault();
 
-    setAddedImages(prevState => ([...prevState, URL.createObjectURL(tempImage.current.files[0])]));
+    const url = URL.createObjectURL(tempImage.current.files[0]);
+
+    setAddedImages(prevState => ([...prevState, url]));
+    setAddedImagesData(prevState => ([...prevState, {data: tempImage.current.files[0], url: url}]));
+  }
+
+  const handleRemoveAddedImage = (image) => {
+    setAddedImages(addedImages.filter(item => item !== image));
+    setAddedImagesData(addedImagesData.filter(item =>  item.url !== image));
   }
 
   const handleRemoveDBImage = (image) => {
     setDBImages(DBImages.filter(item => item !== image));
   }
 
-  const handleRemoveAddedImage = (image) => {
-    setAddedImages(addedImages.filter(item => item !== image));
-  }
-
   const handleAddCategory = (id) => {
     const categoria = categories.findIndex((e) => e._id === id);
 
-    let categorias = selectedCategories;
-    categorias.push(categories[categoria]);
-
-    setSelectedCategories(categorias);
+    setSelectedCategories(prevState => ([...prevState, categories[categoria]]));
   }
 
   const handleRemoveCategory = (id) => {
-    const categoria = selectedCategories.findIndex((e) => e._id === id);
-
-    let categorias = selectedCategories;
-    categorias.splice(categoria, 1);
-
-    setSelectedCategories(categorias);
+    setSelectedCategories(selectedCategories.filter(item => item._id !== id));
   }
 
   const router = useRouter();
-  const handleSave = () => {
+  const handleSave = (e) => {
+    e.preventDefault();
+
     const data = {
       name: name,
       description: description, 
@@ -126,8 +140,8 @@ export default function Product({ params }){
       specifications: specifications
     }
 
-    if(!params.productId){ //add novo produto
-      productServices.addNewProduct(data, addedImages).then((res) => {
+    if(params.productId === "AddNew"){ //add novo produto
+      productServices.addNewProduct(data, addedImagesData).then((res) => {
         if(res.errors){
           setMessage({text: res.errors, type: "error"});
         }
@@ -138,7 +152,7 @@ export default function Product({ params }){
       });
     }
     else {
-      productServices.updateProduct(params.productId, data, DBImages, addedImages).then((res) => {
+      productServices.updateProduct(params.productId, data, DBImages, addedImagesData).then((res) => {
         if(res.errors){
           setMessage({text: res.errors, type: "error"});
         }
@@ -170,15 +184,15 @@ export default function Product({ params }){
           </label>
           <label>
             <span>Preço Anterior:</span>
-            <input type="number" placeholder="Preço Anterior" onChange={(e) => setPreviousPrice(e.target.value)} value={previousPrice || 0}/>
+            <input type="number" placeholder="Digite um valor" onChange={(e) => setPreviousPrice(e.target.value)} value={previousPrice || undefined}/>
           </label>
           <label>
             <span>Preço:</span>
-            <input type="number" placeholder="Preço" onChange={(e) => setPrice(e.target.value)} value={price || 0}/>
+            <input type="number" placeholder="Digite um valor" onChange={(e) => setPrice(e.target.value)} value={price || undefined}/>
           </label>
           <label>
             <span>Frete:</span>
-            <input type="number" placeholder="Frete" onChange={(e) => setShipping(e.target.value)} value={shipping || 0}/>
+            <input type="number" placeholder="Digite um valor" onChange={(e) => setShipping(e.target.value)} value={shipping || undefined}/>
           </label>
         </form>
       </div>
@@ -245,25 +259,22 @@ export default function Product({ params }){
       </div>
       <div id={styles.categories}>
         <h3>Categorias</h3>
-        <div>
-          {categories && categories.map((category) => {
-            return <div key={category._id}>
-              <image src={category.image} alt={category.name}/>
+        <div className={styles.categories_panel}>
+          {categories.map((category) => {
+            return <div key={category._id} className={styles.category_panel}>
               <p>{category.name}</p>
-              <button onClick={() => handleAddCategory(category._id)}>Adicionar</button>
+              <button className={styles.add_category_btn} onClick={() => handleAddCategory(category._id)}>Add</button>
             </div>
           })}  
         </div>  
-        <div>
-          {selectedCategories && <>
-            <h4>Categorias selecionadas:</h4>
-            {selectedCategories.map((category) => {
-              return <div key={category._id}>
-                <p>{category.name}</p>
-                <button onClick={() => handleRemoveCategory(category._id)}>Remover</button>
-              </div>
-            })}
-          </>}
+        <h4>Categorias Selecionadas:</h4>
+        <div className={styles.categories_panel}>
+          {selectedCategories.map((category) => {
+            return <div key={category._id} className={styles.category_panel}>
+              <p>{category.name}</p>
+              <button className={styles.rmv_category_btn} onClick={() => handleRemoveCategory(category._id)}>Del</button>
+            </div>
+          })}
         </div>   
       </div>
       <div id={styles.end}>
