@@ -2,6 +2,8 @@ import { api, requestConfig } from "@/utils/config"
 
 import { getUser as getUserToken } from "@/utils/userUtils";
 
+import awsService from "./awsServices";
+
 const getProductById = async(id) => {
   const config = requestConfig("GET", null);
 
@@ -77,6 +79,50 @@ const deleteProduct = async(product) => {
   return res;
 }
 
+const addNewProduct = async(product, addedImages) => {
+  const token = getUserToken().token;
+  let tempImageList = [];
+
+  if(addedImages){
+    addedImages.map((image) => {
+      const randomName = Date.now() + image.data.name;
+      awsService.sendFile(image.data, "products", randomName);
+      const imageURL = "https://mycommercetutorial.s3.sa-east-1.amazonaws.com/products/" + randomName;
+      tempImageList.push(imageURL);
+    });
+
+    product.images = tempImageList;
+  }
+
+  const config = requestConfig("POST", product, token);
+
+  const res = await fetch(api + "/products/", config).then((res) => res.json());
+
+  return res;
+}
+
+const updateProduct = async(id, product, DBImages, addedImages) => {
+  const token = getUserToken().token;
+  let tempImageList = DBImages;
+
+  if(addedImages){
+    addedImages.map((image) => {
+      const randomName = Date.now() + image.data.name;
+      awsService.sendFile(image.data, "products", randomName);
+      const imageURL = "https://mycommercetutorial.s3.sa-east-1.amazonaws.com/products/" + randomName;
+      tempImageList.push(imageURL);
+    });
+  }
+
+  product.images = tempImageList;
+
+  const config = requestConfig("PUT", product, token);
+
+  const res = await fetch(api + "/products/update/" + id, config).then((res) => res.json());
+
+  return res;
+}
+
 const productService = {
   getProductById,
   getNewest,
@@ -87,6 +133,8 @@ const productService = {
   getUserFavorites,
   processFavoriteProduct,
   deleteProduct,
+  addNewProduct,
+  updateProduct,
 };
 
 export default productService;
